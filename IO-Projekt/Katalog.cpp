@@ -31,7 +31,7 @@ void Katalog::filtruj_wg_standardu() {
 }
 
 Rezerwacja Katalog::zarezerwuj() {
-
+	return Rezerwacja();
 }
 
 void Katalog::dodaj_pokoj() {

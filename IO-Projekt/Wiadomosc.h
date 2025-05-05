@@ -14,14 +14,16 @@
 #define _WIADOMOSC_H
 
 #include <string>
+#include <memory>
 #include "Data.h"
-#include "Uzytkownik.h"
+
+class Uzytkownik;
 
 
 class Wiadomosc {
 private:
-	Uzytkownik* adresat;
-	Uzytkownik* nadawca;
+	std::shared_ptr<Uzytkownik> adresat;
+	std::shared_ptr<Uzytkownik> nadawca;
 	std::string tresc;
 	Data data_wyslania;
 };

@@ -14,7 +14,7 @@
 #include "Platnosc.h"
 
 Platnosc Rezerwacja::zaplac() {
-
+	return Platnosc();
 }
 
 void Rezerwacja::pokaz_szczegoly() {

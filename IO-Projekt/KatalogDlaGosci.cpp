@@ -31,6 +31,6 @@ void KatalogDlaGosci::filtruj_wg_standardu() {
 }
 
 Rezerwacja KatalogDlaGosci::zarezerwuj() {
-
+	return Rezerwacja();
 }
 
