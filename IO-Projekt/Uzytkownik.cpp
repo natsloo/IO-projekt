@@ -12,6 +12,10 @@
 
 #include "Uzytkownik.h"
 
+Uzytkownik::Uzytkownik() {
+
+}
+
 void Uzytkownik::wyslij_wiadomosc() {
 
 }

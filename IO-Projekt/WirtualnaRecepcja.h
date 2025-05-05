@@ -13,12 +13,13 @@
 #if !defined(_WIRTUALNARECEPCJA_H)
 #define _WIRTUALNARECEPCJA_H
 
+#include <vector>
 #include "Rezerwacja.h"
 
 class WirtualnaRecepcja {
 private:
-	collection<Rezerwacja> aktualni_goscie;
-	collection<Pokoj> pokoje;
+	std::vector<Rezerwacja> aktualni_goscie;
+	std::vector<Pokoj> pokoje;
 	void zamelduj(Rezerwacja rezerwacja);
 	void wymelduj();
 };

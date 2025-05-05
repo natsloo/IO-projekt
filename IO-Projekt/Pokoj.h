@@ -13,13 +13,14 @@
 #if !defined(_POKOJ_H)
 #define _POKOJ_H
 
+#include <vector>
 
 class Pokoj {
 private:
 	int numer;
 	int maksymalna_liczba_osob;
 	int aktualny_status;
-	collection<Data> niedostepne_daty;
+	std::vector<Data> niedostepne_daty;
 	double cena_za_noc;
 	int standard_pokoju;
 };

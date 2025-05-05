@@ -13,6 +13,7 @@
 #if !defined(_PRACOWNIK_H)
 #define _PRACOWNIK_H
 
+#include "WirtualnaRecepcja.h"
 #include "Uzytkownik.h"
 
 class Pracownik : public Uzytkownik {
@@ -20,7 +21,7 @@ public:
 	void aktualizuj_katalog();
 	void przegladaj_katalog();
 private:
-	WirualanaRecepcja* recepcja;
+	WirtualnaRecepcja* recepcja;
 };
 
 #endif  //_PRACOWNIK_H

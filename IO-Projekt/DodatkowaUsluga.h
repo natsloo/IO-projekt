@@ -13,10 +13,11 @@
 #if !defined(_DODATKOWAUSLUGA_H)
 #define _DODATKOWAUSLUGA_H
 
+#include <string>
 
 class DodatkowaUsluga {
 private:
-	string nazwa;
+	std::string nazwa;
 	double cena;
 };
 

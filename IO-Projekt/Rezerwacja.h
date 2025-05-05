@@ -13,8 +13,11 @@
 #if !defined(_REZERWACJA_H)
 #define _REZERWACJA_H
 
+#include <vector>
 #include "Platnosc.h"
 #include "Data.h"
+#include "DodatkowaUsluga.h"
+#include "Pokoj.h"
 
 class Rezerwacja {
 public:
@@ -26,7 +29,7 @@ private:
 	Data data;
 	int status_rezerwacji;
 	int liczba_osob;
-	collection<DodatkowaUsluga> dodatkowe_uslugi;
+	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	Pokoj* pokoj;
 	Platnosc* platnosc;
 };

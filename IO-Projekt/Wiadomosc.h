@@ -13,13 +13,16 @@
 #if !defined(_WIADOMOSC_H)
 #define _WIADOMOSC_H
 
+#include <string>
 #include "Data.h"
+#include "Uzytkownik.h"
+
 
 class Wiadomosc {
 private:
 	Uzytkownik* adresat;
 	Uzytkownik* nadawca;
-	string tresc;
+	std::string tresc;
 	Data data_wyslania;
 };
 

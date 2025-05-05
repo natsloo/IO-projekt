@@ -13,14 +13,16 @@
 #if !defined(_GOSC_H)
 #define _GOSC_H
 
+#include <vector>
 #include "Uzytkownik.h"
+#include "Rezerwacja.h"
 
 class Gosc : public Uzytkownik {
 public:
 	void przegladaj_katalog();
 	void przegladaj_historie_rezerwacji();
 private:
-	collection<Rezerwacja> historia_rezervacji;
+	std::vector<Rezerwacja> historia_rezerwacji;
 };
 
 #endif  //_GOSC_H

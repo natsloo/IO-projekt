@@ -13,6 +13,9 @@
 #if !defined(_UZYTKOWNIK_H)
 #define _UZYTKOWNIK_H
 
+#include <string>
+#include <vector>
+#include "Wiadomosc.h"
 
 class Uzytkownik {
 public:
@@ -21,11 +24,12 @@ public:
 	void zaloguj();
 	void wyloguj();
 	void zarejestruj();
+	Uzytkownik();
 private:
-	string login;
-	string haslo;
-	collection<Wiadomosc> wyslane_wiadomosci;
-	collection<Wiadomosc> odebrane_wiadomosci;
+	std::string login;
+	std::string haslo;
+	std::vector<Wiadomosc> wyslane_wiadomosci;
+	std::vector<Wiadomosc> odebrane_wiadomosci;
 };
 
 #endif  //_UZYTKOWNIK_H

@@ -13,10 +13,13 @@
 #if !defined(_KATALOG_H)
 #define _KATALOG_H
 
+#include <vector>
 #include "KatalogDlaGosci.h"
 #include "KatalogDlaPracownikow.h"
 #include "Data.h"
 #include "Rezerwacja.h"
+#include "Pokoj.h"
+#include "DodatkowaUsluga.h"
 
 class Katalog : public KatalogDlaGosci, public KatalogDlaPracownikow {
 public:
@@ -32,8 +35,8 @@ public:
 	void edytuj_usluge();
 	void usun_usluge();
 private:
-	collection<Pokoj> pokoje;
-	collection<DodatkowaUsluga> uslugi;
+	std::vector<Pokoj> pokoje;
+	std::vector<DodatkowaUsluga> uslugi;
 };
 
 #endif  //_KATALOG_H
