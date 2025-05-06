@@ -14,24 +14,27 @@
 #define _REZERWACJA_H
 
 #include <vector>
+#include <memory>
 #include "Platnosc.h"
 #include "Data.h"
 #include "DodatkowaUsluga.h"
 #include "Pokoj.h"
 
 class Rezerwacja {
-public:
-	Platnosc zaplac();
-	void pokaz_szczegoly();
-	void anuluj();
-	void zmien_dane();
 private:
 	Data data;
 	int status_rezerwacji;
 	int liczba_osob;
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
-	Pokoj* pokoj;
-	Platnosc* platnosc;
+	std::shared_ptr<Pokoj> pokoj;
+	std::shared_ptr<Platnosc> platnosc;
+public:
+	Rezerwacja();
+	~Rezerwacja() = default;
+	Platnosc zaplac();
+	void pokaz_szczegoly();
+	void anuluj();
+	void zmien_dane();
 };
 
 #endif  //_REZERWACJA_H

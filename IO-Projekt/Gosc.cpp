@@ -12,11 +12,31 @@
 
 #include "Gosc.h"
 
-void Gosc::przegladaj_katalog() {
+void Gosc::przegladaj_katalog() 
+{
+	auto katalog = std::dynamic_pointer_cast<KatalogDlaGosci>(Katalog::pobierzInstancje());
+}
+
+void Gosc::przegladaj_historie_rezerwacji() 
+{
 
 }
 
-void Gosc::przegladaj_historie_rezerwacji() {
+std::vector<std::shared_ptr<Pokoj>> polacz_wyniki_filtrow(std::vector<std::shared_ptr<Pokoj>> v1, std::vector<std::shared_ptr<Pokoj>> v2)
+{
+    std::vector<std::shared_ptr<Pokoj>> wynik;
 
+    for (const auto& p1 : v1) 
+    {
+        for (const auto& p2 : v2) 
+        {
+            if (p1 == p2) // porównanie wskaŸników, czyli ten sam obiekt
+            { 
+                wynik.push_back(p1);
+                break; // wystarczy jeden raz
+            }
+        }
+    }
+    return wynik;
 }
 

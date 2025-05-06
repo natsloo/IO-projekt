@@ -127,11 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="Gosc.cpp" />
     <ClCompile Include="IO-Projekt.cpp" />
     <ClCompile Include="Katalog.cpp" />
-    <ClCompile Include="KatalogDlaGosci.cpp" />
-    <ClCompile Include="KatalogDlaPracownikow.cpp" />
     <ClCompile Include="Platnosc.cpp" />
     <ClCompile Include="Pracownik.cpp" />
     <ClCompile Include="Rezerwacja.cpp" />

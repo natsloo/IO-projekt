@@ -14,15 +14,20 @@
 #define _GOSC_H
 
 #include <vector>
+#include <memory>
 #include "Uzytkownik.h"
 #include "Rezerwacja.h"
+#include "KatalogDlaGosci.h"
+#include "Katalog.h"
 
 class Gosc : public Uzytkownik {
-public:
-	void przegladaj_katalog();
-	void przegladaj_historie_rezerwacji();
 private:
 	std::vector<Rezerwacja> historia_rezerwacji;
+public:
+	Gosc();
+	~Gosc() = default;
+	void przegladaj_katalog();
+	void przegladaj_historie_rezerwacji();
 };
 
 #endif  //_GOSC_H

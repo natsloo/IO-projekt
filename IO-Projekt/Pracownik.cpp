@@ -12,11 +12,13 @@
 
 #include "Pracownik.h"
 
-void Pracownik::aktualizuj_katalog() {
-
+void Pracownik::aktualizuj_katalog() 
+{
+	auto katalog = std::dynamic_pointer_cast<KatalogDlaPracownikow>(Katalog::pobierzInstancje());
 }
 
-void Pracownik::przegladaj_katalog() {
+void Pracownik::przegladaj_katalog() 
+{
 
 }
 

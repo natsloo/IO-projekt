@@ -12,27 +12,33 @@
 
 #include "Uzytkownik.h"
 
-Uzytkownik::Uzytkownik() {
+Uzytkownik::Uzytkownik() 
+{
 
 }
 
-void Uzytkownik::wyslij_wiadomosc() {
+void Uzytkownik::wyslij_wiadomosc() 
+{
 
 }
 
-void Uzytkownik::przegladaj_wiadomosci() {
+void Uzytkownik::przegladaj_wiadomosci() 
+{
 
 }
 
-void Uzytkownik::zaloguj() {
+void Uzytkownik::zaloguj() 
+{
 
 }
 
-void Uzytkownik::wyloguj() {
+void Uzytkownik::wyloguj() 
+{
 
 }
 
-void Uzytkownik::zarejestruj() {
+void Uzytkownik::zarejestruj() 
+{
 
 }
 

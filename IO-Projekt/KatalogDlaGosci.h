@@ -18,11 +18,12 @@
 
 class KatalogDlaGosci {
 public:
-	void filtruj_wg_daty(Data data);
-	void filtruj_wg_ceny(double min, double max);
-	void filtruj_wg_ilosci_osob(int ilosc);
-	void filtruj_wg_standardu();
-	Rezerwacja zarezerwuj();
+	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) = 0;
+	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ceny(double min, double max) = 0;
+	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ilosci_osob(int ilosc) = 0;
+	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_standardu() = 0;
+	virtual Rezerwacja zarezerwuj() = 0;
+	virtual ~KatalogDlaGosci() = default;
 };
 
 #endif  //_KATALOGDLAGOSCI_H

@@ -23,6 +23,9 @@ private:
 	std::vector<Data> niedostepne_daty;
 	double cena_za_noc;
 	int standard_pokoju;
+public:
+	Pokoj();
+	~Pokoj() = default;
 };
 
 #endif  //_POKOJ_H

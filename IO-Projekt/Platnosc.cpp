@@ -12,7 +12,13 @@
 
 #include "Platnosc.h"
 
-void Platnosc::wygeneruj_fakture() {
+Platnosc::Platnosc()
+{
+
+}
+
+void Platnosc::wygeneruj_fakture() 
+{
 
 }
 

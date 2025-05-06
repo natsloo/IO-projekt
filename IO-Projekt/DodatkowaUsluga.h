@@ -19,6 +19,9 @@ class DodatkowaUsluga {
 private:
 	std::string nazwa;
 	double cena;
+public:
+	DodatkowaUsluga();
+	~DodatkowaUsluga() = default;
 };
 
 #endif  //_DODATKOWAUSLUGA_H

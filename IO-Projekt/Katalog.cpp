@@ -14,47 +14,68 @@
 #include "Data.h"
 #include "Rezerwacja.h"
 
-void Katalog::filtruj_wg_daty(Data data) {
+Katalog::Katalog()
+{
 
 }
 
-void Katalog::filtruj_wg_ceny(double min, double max) {
-
+std::shared_ptr<Katalog> Katalog::pobierzInstancje() {
+    static std::shared_ptr<Katalog> instancja(new Katalog());
+    return instancja;
 }
 
-void Katalog::filtruj_wg_ilosci_osob(int ilosc) {
-
+std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_daty(Data data)
+{
+    return std::vector<std::shared_ptr<Pokoj>>();
 }
 
-void Katalog::filtruj_wg_standardu() {
-
+std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_ceny(double min, double max)
+{
+    return std::vector<std::shared_ptr<Pokoj>>();
 }
 
-Rezerwacja Katalog::zarezerwuj() {
+std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_ilosci_osob(int ilosc)
+{
+    return std::vector<std::shared_ptr<Pokoj>>();
+}
+
+std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_standardu()
+{
+    return std::vector<std::shared_ptr<Pokoj>>();
+}
+
+Rezerwacja Katalog::zarezerwuj() 
+{
 	return Rezerwacja();
 }
 
-void Katalog::dodaj_pokoj() {
+void Katalog::dodaj_pokoj() 
+{
 
 }
 
-void Katalog::edytuj_pokoj() {
+void Katalog::edytuj_pokoj() 
+{
 
 }
 
-void Katalog::usun_pokoj() {
+void Katalog::usun_pokoj() 
+{
 
 }
 
-void Katalog::dodaj_usluge() {
+void Katalog::dodaj_usluge() 
+{
 
 }
 
-void Katalog::edytuj_usluge() {
+void Katalog::edytuj_usluge() 
+{
 
 }
 
-void Katalog::usun_usluge() {
+void Katalog::usun_usluge() 
+{
 
 }
 

@@ -21,6 +21,9 @@ private:
 	int godzina;
 	int minuta;
 	int sekunda;
+public:
+	Data();
+	~Data() = default;
 };
 
 #endif  //_DATA_H

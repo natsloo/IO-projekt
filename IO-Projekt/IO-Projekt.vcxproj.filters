@@ -24,12 +24,6 @@
     <ClCompile Include="Katalog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KatalogDlaGosci.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KatalogDlaPracownikow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Platnosc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WirtualnaRecepcja.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

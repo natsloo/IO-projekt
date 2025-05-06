@@ -16,11 +16,13 @@
 #include "Data.h"
 
 class Platnosc {
-public:
-	Data data;
 private:
 	int kwota;
 	int status_platnosci;
+	Data data;
+public:
+	Platnosc();
+	~Platnosc() = default;
 	void wygeneruj_fakture();
 };
 

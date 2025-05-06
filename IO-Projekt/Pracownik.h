@@ -13,15 +13,20 @@
 #if !defined(_PRACOWNIK_H)
 #define _PRACOWNIK_H
 
+#include <memory>
 #include "WirtualnaRecepcja.h"
 #include "Uzytkownik.h"
+#include "Katalog.h"
+#include "KatalogDlaPracownikow.h"
 
 class Pracownik : public Uzytkownik {
+private:
+	std::shared_ptr<WirtualnaRecepcja> recepcja;
 public:
+	Pracownik();
+	~Pracownik() = default;
 	void aktualizuj_katalog();
 	void przegladaj_katalog();
-private:
-	WirtualnaRecepcja* recepcja;
 };
 
 #endif  //_PRACOWNIK_H

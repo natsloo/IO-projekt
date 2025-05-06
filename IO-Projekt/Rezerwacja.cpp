@@ -13,19 +13,28 @@
 #include "Rezerwacja.h"
 #include "Platnosc.h"
 
-Platnosc Rezerwacja::zaplac() {
+Rezerwacja::Rezerwacja()
+{
+
+}
+
+Platnosc Rezerwacja::zaplac() 
+{
 	return Platnosc();
 }
 
-void Rezerwacja::pokaz_szczegoly() {
+void Rezerwacja::pokaz_szczegoly() 
+{
 
 }
 
-void Rezerwacja::anuluj() {
+void Rezerwacja::anuluj() 
+{
 
 }
 
-void Rezerwacja::zmien_dane() {
+void Rezerwacja::zmien_dane() 
+{
 
 }
 

@@ -14,6 +14,7 @@
 #define _KATALOG_H
 
 #include <vector>
+#include <memory>
 #include "KatalogDlaGosci.h"
 #include "KatalogDlaPracownikow.h"
 #include "Data.h"
@@ -22,21 +23,31 @@
 #include "DodatkowaUsluga.h"
 
 class Katalog : public KatalogDlaGosci, public KatalogDlaPracownikow {
-public:
-	void filtruj_wg_daty(Data data);
-	void filtruj_wg_ceny(double min, double max);
-	void filtruj_wg_ilosci_osob(int ilosc);
-	void filtruj_wg_standardu();
-	Rezerwacja zarezerwuj();
-	void dodaj_pokoj();
-	void edytuj_pokoj();
-	void usun_pokoj();
-	void dodaj_usluge();
-	void edytuj_usluge();
-	void usun_usluge();
 private:
 	std::vector<Pokoj> pokoje;
 	std::vector<DodatkowaUsluga> uslugi;
+	
+	Katalog();
+
+	Katalog(const Katalog&) = delete;
+	Katalog& operator=(const Katalog&) = delete;
+
+public:
+	~Katalog() = default;
+
+	static std::shared_ptr<Katalog> pobierzInstancje();
+
+	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) override;
+	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ceny(double min, double max) override;
+	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ilosci_osob(int ilosc) override;
+	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_standardu() override;
+	Rezerwacja zarezerwuj() override;
+	void dodaj_pokoj() override;
+	void edytuj_pokoj() override;
+	void usun_pokoj() override;
+	void dodaj_usluge() override;
+	void edytuj_usluge() override;
+	void usun_usluge() override;
 };
 
 #endif  //_KATALOG_H

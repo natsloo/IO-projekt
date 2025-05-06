@@ -13,11 +13,13 @@
 #include "WirtualnaRecepcja.h"
 #include "Rezerwacja.h"
 
-void WirtualnaRecepcja::zamelduj(Rezerwacja rezerwacja) {
+void WirtualnaRecepcja::zamelduj(Rezerwacja rezerwacja) 
+{
 
 }
 
-void WirtualnaRecepcja::wymelduj() {
+void WirtualnaRecepcja::wymelduj() 
+{
 
 }
 

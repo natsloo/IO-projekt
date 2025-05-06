@@ -18,18 +18,20 @@
 #include "Wiadomosc.h"
 
 class Uzytkownik {
-public:
-	void wyslij_wiadomosc();
-	void przegladaj_wiadomosci();
-	void zaloguj();
-	void wyloguj();
-	void zarejestruj();
-	Uzytkownik();
 private:
 	std::string login;
 	std::string haslo;
 	std::vector<Wiadomosc> wyslane_wiadomosci;
 	std::vector<Wiadomosc> odebrane_wiadomosci;
+public:
+	Uzytkownik();
+	~Uzytkownik() = default;
+	void wyslij_wiadomosc();
+	void przegladaj_wiadomosci();
+	void zaloguj();
+	void wyloguj();
+	void zarejestruj();
+	
 };
 
 #endif  //_UZYTKOWNIK_H
