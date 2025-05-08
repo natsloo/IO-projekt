@@ -14,6 +14,7 @@
 #define _PRACOWNIK_H
 
 #include <memory>
+#include <stdlib.h>
 #include "WirtualnaRecepcja.h"
 #include "Uzytkownik.h"
 #include "Katalog.h"
@@ -22,11 +23,12 @@
 class Pracownik : public Uzytkownik {
 private:
 	std::shared_ptr<WirtualnaRecepcja> recepcja;
+	void aktualizuj_katalog();
+	void przegladaj_katalog();
 public:
 	Pracownik();
 	~Pracownik() = default;
-	void aktualizuj_katalog();
-	void przegladaj_katalog();
+	void gui();
 };
 
 #endif  //_PRACOWNIK_H

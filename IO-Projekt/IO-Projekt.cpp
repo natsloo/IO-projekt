@@ -1,20 +1,81 @@
-﻿// IO-Projekt.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+﻿#include <iostream>
+#include "Gosc.h"
+#include "Pracownik.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout<<R"(
+ .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+| |  ____  ____  | || |     ____     | || |  _________   | || |  _________   | || |   _____      | |
+| | |_   ||   _| | || |   .'    `.   | || | |  _   _  |  | || | |_   ___  |  | || |  |_   _|     | |
+| |   | |__| |   | || |  /  .--.  \  | || | |_/ | | \_|  | || |   | |_  \_|  | || |    | |       | |
+| |   |  __  |   | || |  | |    | |  | || |     | |      | || |   |  _|  _   | || |    | |   _   | |
+| |  _| |  | |_  | || |  \  `--'  /  | || |    _| |_     | || |  _| |___/ |  | || |   _| |__/ |  | |
+| | |____||____| | || |   `.____.'   | || |   |_____|    | || | |_________|  | || |  |________|  | |
+| |              | || |              | || |              | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
+)";
+    int a;
+    do {
+        std::cout << "\n\n\n\nKim jestes?\n1. Gosc.\n2. Pracownik.\n";
+        std::cin >> a;
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+        }
+        if (a == 1) {
+            Gosc g;
+            int b;
+            do {
+                std::cout << "\nChcesz:\n1. zalogowac sie.\n2. utworzyc nowe konto.\n3. wrocic do wyboru uzytkownika.\n";
+                std::cin >> b;
+                if (std::cin.fail()) {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+                }
+                if (b == 1) {
+                    if (g.zaloguj("dane/goscie.csv")) {
+                        g.gui();
+                    }
+                    else {
+                        std::cout << "Niepoprawne dane lub nie ma takiego uzytkownika.\n";
+                    }
+                }
+                if (b == 2) {
+                    g.zarejestruj("dane/goscie.csv");
+                }
+                if (b == 3) {
+                    break;
+                }
+            } while (true);
+        }
+        if (a == 2) {
+            Pracownik p;
+            int b;
+            do {
+                std::cout << "Chcesz:\n1. zalogowac sie.\n2. utworzyc nowe konto.\n3. wrocic do wyboru uzytkownika.\n";
+                std::cin >> b;
+                if (std::cin.fail()) {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+                }
+                if (b == 1) {
+                    if (p.zaloguj("dane/pracownicy.csv")) {
+                        p.gui();
+                    }
+                    else {
+                        std::cout << "Niepoprawne dane lub nie ma takiego uzytkownika.\n";
+                    }
+                }
+                if (b == 2) {
+                    p.zarejestruj("dane/pracownicy.csv");
+                }
+                if (b == 3) {
+                    break;
+                }
+            } while (true);
+        }
+    } while (true);
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

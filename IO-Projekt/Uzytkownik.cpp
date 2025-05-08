@@ -27,9 +27,85 @@ void Uzytkownik::przegladaj_wiadomosci()
 
 }
 
-void Uzytkownik::zaloguj() 
-{
+std::pair<std::string, std::string> parse_csv(std::string& linia) {
+	std::stringstream ss(linia);
+	std::string token;
 
+	std::getline(ss, token, ',');
+	std::string login = token;
+
+	std::getline(ss, token, ',');
+	std::string haslo = token;
+
+	std::pair<std::string, std::string> creds;
+	creds.first = login;
+	creds.second = haslo;
+	return creds;
+}
+
+std::pair<bool,std::string> sprawdz_login(std::string login) {
+	std::string plik[] = { "dane/pracownicy.csv","dane/goscie.csv" };
+	for (int i = 0; i < 2; i++) {
+		std::ifstream p(plik[i]);
+		std::string linia;
+		while (std::getline(p, linia)) {
+			std::pair<std::string, std::string> creds = parse_csv(linia);
+			if (creds.first == login) {
+				std::pair<bool, std::string> result;
+				result.first = false;
+				result.second = "Ten login jest juz zajety.\n";
+				p.close();
+				return result;
+			}
+		}
+		p.close();
+	}
+	std::pair<bool, std::string> result;
+	std::regex wzorzec("[a-zA-Z0-9]{3,}");
+	if (std::regex_match(login, wzorzec)) {
+		result.first = true;
+		result.second = "";
+		return result;
+	}
+	result.first = false;
+	result.second = "Login nie spelnia warunkow. Sprobuj ponownie.\n";
+	return result;
+}
+
+std::pair<bool, std::string> sprawdz_haslo(std::string haslo) {
+	std::pair<bool, std::string> result;
+	std::regex wzorzec("[^,]{8,}");
+	if (std::regex_match(haslo, wzorzec)) {
+		result.first = true;
+		result.second = "";
+		return result;
+	}
+	result.first = false;
+	result.second = "Haslo nie spelnia warunkow. Sprobuj ponownie.\n";
+	return result;
+}
+
+bool Uzytkownik::zaloguj(std::string plik) 
+{
+	std::cout << "Podaj login.\n";
+	std::string login;
+	std::cin >> login;
+	std::cout << "Podaj haslo.\n";
+	std::string haslo;
+	std::cin >> haslo;
+	std::ifstream p(plik);
+	std::string linia;
+	while (std::getline(p, linia)) {
+		std::pair<std::string, std::string> creds = parse_csv(linia);
+		if (creds.first == login && creds.second == haslo) {
+			this->login = login;
+			this->haslo = haslo;
+			p.close();
+			return true;
+		}
+	}
+	p.close();
+	return false;
 }
 
 void Uzytkownik::wyloguj() 
@@ -37,8 +113,32 @@ void Uzytkownik::wyloguj()
 
 }
 
-void Uzytkownik::zarejestruj() 
+void Uzytkownik::zarejestruj(std::string plik)
 {
-
+	std::pair<bool, std::string> result;
+	result.first = false;
+	result.second = "";
+	std::string login, haslo;
+	do {
+		std::cout << "Podaj login. Musi miec przynajmniej 3 znaki. Dozwolone znaki to male i duze litery oraz cyfry.\n";
+		std::cin >> login;
+		//std::cout <<"\nlogin: "<< login;
+		result = sprawdz_login(login);
+		std::cout << result.second;
+	} while (result.first != true);
+	result.first = false;
+	result.second = "";
+	do {
+		std::cout << "Podaj haslo. Musi miec przynajmniej 8 znakow. Dozwolone znaki to male i duze litery, cyfry oraz znaki specjalne poza przecinkiem.\n";
+		std::cin >> haslo;
+		result = sprawdz_haslo(haslo);
+		std::cout << result.second;
+	} while (result.first != true);
+	std::string linia = login + "," + haslo + "\n";
+	std::ofstream p(plik, std::ios::app);
+	//std::cout << "\n\nDo pliku wrzucam: " << linia << "\n\n";
+	p << linia;
+	p.close();
+	std::cout << "Poprawnie utworzono konto.\nZaloguj sie, by miec dostep do systemu.\n";
 }
 

@@ -12,6 +12,8 @@
 
 #include "Pracownik.h"
 
+Pracownik::Pracownik(){}
+
 void Pracownik::aktualizuj_katalog() 
 {
 	auto katalog = std::dynamic_pointer_cast<KatalogDlaPracownikow>(Katalog::pobierzInstancje());
@@ -20,5 +22,12 @@ void Pracownik::aktualizuj_katalog()
 void Pracownik::przegladaj_katalog() 
 {
 
+}
+
+void Pracownik::gui() {
+	system("cls");
+	//system("clear");
+	std::cout << "TU BEDZIE GUI\n";
+	system("pause");
 }
 

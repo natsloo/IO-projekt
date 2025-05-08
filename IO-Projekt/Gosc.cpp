@@ -12,6 +12,8 @@
 
 #include "Gosc.h"
 
+Gosc::Gosc() {}
+
 void Gosc::przegladaj_katalog() 
 {
 	auto katalog = std::dynamic_pointer_cast<KatalogDlaGosci>(Katalog::pobierzInstancje());
@@ -21,6 +23,7 @@ void Gosc::przegladaj_historie_rezerwacji()
 {
 
 }
+
 
 std::vector<std::shared_ptr<Pokoj>> polacz_wyniki_filtrow(std::vector<std::shared_ptr<Pokoj>> v1, std::vector<std::shared_ptr<Pokoj>> v2)
 {
@@ -38,5 +41,13 @@ std::vector<std::shared_ptr<Pokoj>> polacz_wyniki_filtrow(std::vector<std::share
         }
     }
     return wynik;
+}
+
+void Gosc::gui() {
+    
+    system("cls");
+    //system("clear");
+    std::cout << "TU BEDZIE GUI\n";
+    system("pause");
 }
 

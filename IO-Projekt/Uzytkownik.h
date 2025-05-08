@@ -15,7 +15,12 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <regex>
 #include "Wiadomosc.h"
+
 
 class Uzytkownik {
 private:
@@ -28,9 +33,9 @@ public:
 	~Uzytkownik() = default;
 	void wyslij_wiadomosc();
 	void przegladaj_wiadomosci();
-	void zaloguj();
+	bool zaloguj(std::string plik);
 	void wyloguj();
-	void zarejestruj();
+	void zarejestruj(std::string plik);
 	
 };
 

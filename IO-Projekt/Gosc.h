@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <memory>
+#include <stdlib.h>
 #include "Uzytkownik.h"
 #include "Rezerwacja.h"
 #include "KatalogDlaGosci.h"
@@ -23,11 +24,12 @@
 class Gosc : public Uzytkownik {
 private:
 	std::vector<Rezerwacja> historia_rezerwacji;
+	void przegladaj_katalog();
+	void przegladaj_historie_rezerwacji();
 public:
 	Gosc();
 	~Gosc() = default;
-	void przegladaj_katalog();
-	void przegladaj_historie_rezerwacji();
+	void gui();
 };
 
 #endif  //_GOSC_H
