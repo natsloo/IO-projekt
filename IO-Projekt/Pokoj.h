@@ -14,6 +14,7 @@
 #define _POKOJ_H
 
 #include <vector>
+#include <string>
 
 class Pokoj {
 private:
@@ -22,7 +23,7 @@ private:
 	int aktualny_status;
 	std::vector<Data> niedostepne_daty;
 	double cena_za_noc;
-	int standard_pokoju;
+	std::string standard_pokoju;
 public:
 	Pokoj();
 	~Pokoj() = default;
