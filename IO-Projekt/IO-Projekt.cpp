@@ -17,9 +17,10 @@ int main()
 | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
 )";
+    std::cout << "\n\n\n";
     int a;
     do {
-        std::cout << "\n\n\n\nKim jestes?\n1. Gosc.\n2. Pracownik.\n";
+        std::cout << "Kim jestes?\n1. Gosc.\n2. Pracownik.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -38,6 +39,8 @@ int main()
                 if (b == 1) {
                     if (g.zaloguj("dane/goscie.csv")) {
                         g.gui();
+                        system("cls");
+                        break;
                     }
                     else {
                         std::cout << "Niepoprawne dane lub nie ma takiego uzytkownika.\n";
@@ -64,6 +67,8 @@ int main()
                 if (b == 1) {
                     if (p.zaloguj("dane/pracownicy.csv")) {
                         p.gui();
+                        system("cls");
+                        break;
                     }
                     else {
                         std::cout << "Niepoprawne dane lub nie ma takiego uzytkownika.\n";

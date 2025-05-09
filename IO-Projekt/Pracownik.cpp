@@ -27,7 +27,24 @@ void Pracownik::przegladaj_katalog()
 void Pracownik::gui() {
 	system("cls");
 	//system("clear");
-	std::cout << "TU BEDZIE GUI\n";
-	system("pause");
+    int a;
+    do {
+        std::cout << "1. Pokaz katalog.\n2. Aktualizuj katalog.\n3. Wyloguj sie.\n";
+        std::cin >> a;
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+        }
+        if (a == 1) {
+            przegladaj_katalog();
+        }
+        if (a == 2) {
+            aktualizuj_katalog();
+        }
+        if (a == 3) {
+            wyloguj();
+            break;
+        }
+    } while (true);
 }
 

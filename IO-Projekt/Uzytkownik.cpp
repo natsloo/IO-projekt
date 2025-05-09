@@ -110,7 +110,8 @@ bool Uzytkownik::zaloguj(std::string plik)
 
 void Uzytkownik::wyloguj() 
 {
-
+	this->login = "";
+	this->haslo = "";
 }
 
 void Uzytkownik::zarejestruj(std::string plik)
