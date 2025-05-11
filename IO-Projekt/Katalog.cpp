@@ -16,7 +16,78 @@
 
 Katalog::Katalog()
 {
+    wczytaj_pokoje();
+    wczytaj_uslugi();
+}
 
+DodatkowaUsluga parse_csv_uslugi(std::string& linia) {
+    std::stringstream ss(linia);
+    std::string token;
+
+    std::getline(ss, token, ',');
+    std::string nazwa = token;
+
+    std::getline(ss, token, ',');
+    int cena = stoi(token);
+
+    return DodatkowaUsluga(nazwa, cena);
+}
+
+std::shared_ptr<Pokoj> parse_csv_pokoj(std::string& linia) {
+    std::stringstream ss(linia);
+    std::string token;
+
+    std::getline(ss, token, ',');
+    int numer = stoi(token);
+
+    std::getline(ss, token, ',');
+    int maks_liczba_os = stoi(token);
+
+    std::getline(ss, token, ',');
+    double cena_noc = stod(token);
+
+    std::getline(ss, token, ',');
+    std::string standard = token;
+
+    std::shared_ptr<Pokoj> p(new Pokoj(numer, maks_liczba_os, cena_noc, standard));
+    return p;
+
+}
+
+void Katalog::wczytaj_pokoje() {
+    std::ifstream plik("dane/pokoje.csv");
+    std::string linia;
+    std::getline(plik, linia);
+    while (std::getline(plik, linia)) {
+        this->pokoje.push_back(parse_csv_pokoj(linia));
+    }
+}
+
+void Katalog::wczytaj_uslugi() {
+    std::ifstream plik("dane/uslugi.csv");
+    std::string linia;
+    std::getline(plik, linia);
+    while (std::getline(plik, linia)) {
+        this->uslugi.push_back(parse_csv_uslugi(linia));
+    }
+}
+
+void Katalog::zapisz_pokoje() {
+    std::ofstream p("dane/pokoje.csv", std::ios::out);
+    std::string linia;
+    for (auto& pokoj : pokoje) {
+        linia = pokoj->linia();
+        p << linia << "\n";
+    }
+}
+
+void Katalog::zapisz_uslugi() {
+    std::ofstream p("dane/uslugi.csv", std::ios::out);
+    std::string linia;
+    for (auto& usluga : uslugi) {
+        linia = usluga.linia();
+        p << linia << "\n";
+    }
 }
 
 std::shared_ptr<Katalog> Katalog::pobierzInstancje() {
@@ -52,30 +123,31 @@ Rezerwacja Katalog::zarezerwuj()
 void Katalog::dodaj_pokoj() 
 {
 
+    zapisz_pokoje();
 }
 
 void Katalog::edytuj_pokoj() 
 {
-
+    zapisz_pokoje();
 }
 
 void Katalog::usun_pokoj() 
 {
-
+    zapisz_pokoje();
 }
 
 void Katalog::dodaj_usluge() 
 {
-
+    zapisz_uslugi();
 }
 
 void Katalog::edytuj_usluge() 
 {
-
+    zapisz_uslugi();
 }
 
 void Katalog::usun_usluge() 
 {
-
+    zapisz_uslugi();
 }
 

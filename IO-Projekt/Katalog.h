@@ -15,6 +15,9 @@
 
 #include <vector>
 #include <memory>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include "KatalogDlaGosci.h"
 #include "KatalogDlaPracownikow.h"
 #include "Data.h"
@@ -24,13 +27,17 @@
 
 class Katalog : public KatalogDlaGosci, public KatalogDlaPracownikow {
 private:
-	std::vector<Pokoj> pokoje;
+	std::vector<std::shared_ptr<Pokoj>> pokoje;
 	std::vector<DodatkowaUsluga> uslugi;
 	
 	Katalog();
 
 	Katalog(const Katalog&) = delete;
 	Katalog& operator=(const Katalog&) = delete;
+	void wczytaj_pokoje();
+	void wczytaj_uslugi();
+	void zapisz_pokoje();
+	void zapisz_uslugi();
 
 public:
 	~Katalog() = default;

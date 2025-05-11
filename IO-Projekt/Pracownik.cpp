@@ -17,11 +17,13 @@ Pracownik::Pracownik(){}
 void Pracownik::aktualizuj_katalog() 
 {
 	auto katalog = std::dynamic_pointer_cast<KatalogDlaPracownikow>(Katalog::pobierzInstancje());
+    katalog->dodaj_pokoj(); //tymczasowe
+    katalog->dodaj_usluge(); //tymczasowe
 }
 
 void Pracownik::przegladaj_katalog() 
 {
-
+    auto katalog = std::dynamic_pointer_cast<KatalogDlaPracownikow>(Katalog::pobierzInstancje());
 }
 
 void Pracownik::gui() {

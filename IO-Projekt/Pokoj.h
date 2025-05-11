@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <string>
+#include "Data.h"
 
 class Pokoj {
 private:
@@ -26,7 +27,9 @@ private:
 	std::string standard_pokoju;
 public:
 	Pokoj();
+	Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju);
 	~Pokoj() = default;
+	std::string linia();
 };
 
 #endif  //_POKOJ_H

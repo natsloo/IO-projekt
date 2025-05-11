@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DodatkowaUsluga.cpp" />
     <ClCompile Include="Gosc.cpp" />
     <ClCompile Include="IO-Projekt.cpp" />
     <ClCompile Include="Katalog.cpp" />
     <ClCompile Include="Platnosc.cpp" />
+    <ClCompile Include="Pokoj.cpp" />
     <ClCompile Include="Pracownik.cpp" />
     <ClCompile Include="Rezerwacja.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
