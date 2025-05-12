@@ -10,13 +10,111 @@
 //
 
 
+#define STRZALKI -32
+#define GORA 72
+#define DOL 80
+#define ESC 27
+#define ENTER 13
+
+
+
 #include "Gosc.h"
 
 Gosc::Gosc() {}
 
 void Gosc::przegladaj_katalog() 
 {
+    system("cls");
 	auto katalog = std::dynamic_pointer_cast<KatalogDlaGosci>(Katalog::pobierzInstancje());
+    bool rysuj = true;
+    int wybor = 0;
+    int start = 0;
+    int ilosc = 10;
+    int stop = min(start + ilosc, katalog->get_ilosc_pokoi());
+    while (true)
+    {
+        if (rysuj)
+        {
+            std::cout << "\033[" << 0 << ";" << 0 << "H";
+            std::cout << "ESC - wyjscie z katlogu\n";
+            std::cout << "F - wybierz filtry\n";
+            std::cout << "ENTER - wybierz pokoj do rezerwacji\n\n";
+            for (int i = start; i < stop; i++)
+            {
+                std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis(i) << "\x1b[0m          \n";
+            }
+            rysuj = false;
+        }
+        char klawisz = Ekran::klawisz(); //przeniesc wywolanie funkcji do switch
+        switch (klawisz) 
+        {
+        case STRZALKI:
+        {
+            switch (Ekran::klawisz())
+            {
+            case GORA:
+            {
+                if (wybor)
+                {
+                    wybor--;
+                    rysuj = true;
+                    if (wybor-start < 2)
+                    {
+                        if (start > 0)
+                        {
+                            start--;
+                            stop--;
+                        }
+                    }
+                }
+                break;
+            }
+            case DOL:
+            {
+                if (wybor < katalog->get_ilosc_pokoi()-3)
+                {
+                    wybor++;
+                    rysuj = true;
+                    if (stop-wybor < 2)  
+                    {
+                        if (stop < katalog->get_ilosc_pokoi() - 2)
+                        {
+                            start++;
+                            stop++;
+                        }
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+            }
+            break;
+        }
+        case ESC:
+        {
+            return;
+        }
+        case ENTER:
+        {
+            //tu bêdzie rezerwowanie
+            break;
+        }
+        case 'F':
+        {
+            break;
+        }
+        default:
+            if (klawisz != 0)
+                std::cout << "Nieznany klawisz: " << (int)klawisz << std::endl; //usun¹æ
+            break;
+        }
+
+        //Ó -32
+        //H 72 - góra
+        //Ó - 32
+        //P 80 -dó³
+    }
 }
 
 void Gosc::przegladaj_historie_rezerwacji() 

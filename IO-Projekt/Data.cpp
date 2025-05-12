@@ -4,3 +4,8 @@ Data::Data()
 {
 
 }
+
+bool Data::prawda()
+{
+    return true;
+}

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DodatkowaUsluga.cpp" />
+    <ClCompile Include="Ekran.cpp" />
     <ClCompile Include="Gosc.cpp" />
     <ClCompile Include="IO-Projekt.cpp" />
     <ClCompile Include="Katalog.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="Data.h" />
     <ClInclude Include="DodatkowaUsluga.h" />
+    <ClInclude Include="Ekran.h" />
     <ClInclude Include="Gosc.h" />
     <ClInclude Include="Katalog.h" />
     <ClInclude Include="KatalogDlaGosci.h" />
@@ -154,7 +156,17 @@
     <ClInclude Include="Wiadomosc.h" />
     <ClInclude Include="WirtualnaRecepcja.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+  </Target>
 </Project>

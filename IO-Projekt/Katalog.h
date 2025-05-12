@@ -18,12 +18,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cmath>
 #include "KatalogDlaGosci.h"
 #include "KatalogDlaPracownikow.h"
 #include "Data.h"
 #include "Rezerwacja.h"
 #include "Pokoj.h"
 #include "DodatkowaUsluga.h"
+#include "Ekran.h"
 
 class Katalog : public KatalogDlaGosci, public KatalogDlaPracownikow {
 private:
@@ -42,6 +44,8 @@ private:
 public:
 	~Katalog() = default;
 
+	
+
 	static std::shared_ptr<Katalog> pobierzInstancje();
 
 	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) override;
@@ -55,6 +59,9 @@ public:
 	void dodaj_usluge() override;
 	void edytuj_usluge() override;
 	void usun_usluge() override;
+
+	int get_ilosc_pokoi() override;
+	std::string get_opis(int indeks) override;
 };
 
 #endif  //_KATALOG_H

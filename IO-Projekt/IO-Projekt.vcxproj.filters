@@ -48,6 +48,9 @@
     <ClCompile Include="Pokoj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ekran.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data.h">
@@ -89,5 +92,11 @@
     <ClInclude Include="WirtualnaRecepcja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ekran.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

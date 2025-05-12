@@ -57,7 +57,7 @@ std::shared_ptr<Pokoj> parse_csv_pokoj(std::string& linia) {
 void Katalog::wczytaj_pokoje() {
     std::ifstream plik("dane/pokoje.csv");
     std::string linia;
-    std::getline(plik, linia);
+    //std::getline(plik, linia);
     while (std::getline(plik, linia)) {
         this->pokoje.push_back(parse_csv_pokoj(linia));
     }
@@ -66,7 +66,7 @@ void Katalog::wczytaj_pokoje() {
 void Katalog::wczytaj_uslugi() {
     std::ifstream plik("dane/uslugi.csv");
     std::string linia;
-    std::getline(plik, linia);
+    //std::getline(plik, linia);
     while (std::getline(plik, linia)) {
         this->uslugi.push_back(parse_csv_uslugi(linia));
     }
@@ -151,3 +151,16 @@ void Katalog::usun_usluge()
     zapisz_uslugi();
 }
 
+int Katalog::get_ilosc_pokoi()
+{
+    return pokoje.size();
+}
+
+std::string Katalog::get_opis(int indeks)
+{
+    if ((indeks < 0) || (indeks > pokoje.size()-1))
+    {
+        return "error";
+    }
+    return pokoje[indeks]->opis();
+}

@@ -24,6 +24,9 @@ public:
 	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_standardu() = 0;
 	virtual Rezerwacja zarezerwuj() = 0;
 	virtual ~KatalogDlaGosci() = default;
+
+	virtual int get_ilosc_pokoi() = 0;
+	virtual std::string get_opis(int indeks) = 0;
 };
 
 #endif  //_KATALOGDLAGOSCI_H

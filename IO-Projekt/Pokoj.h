@@ -30,6 +30,7 @@ public:
 	Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju);
 	~Pokoj() = default;
 	std::string linia();
+	std::string opis();
 };
 
 #endif  //_POKOJ_H

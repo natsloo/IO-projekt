@@ -24,6 +24,7 @@ private:
 public:
 	Data();
 	~Data() = default;
+	bool prawda();
 };
 
 #endif  //_DATA_H
