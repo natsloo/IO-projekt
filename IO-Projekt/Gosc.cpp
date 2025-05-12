@@ -93,6 +93,7 @@ void Gosc::przegladaj_katalog()
         }
         case ESC:
         {
+            system("cls");
             return;
         }
         case ENTER:

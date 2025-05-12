@@ -73,9 +73,9 @@ Data Data::dzis() {
 
 }
 
-std::string Data::data_na_string(Data d) { // mo¿na siê tu pobawiæ formatem, jeœli bêdzie trzeba - teraz wypisuje np. 3.5.2025 bez zer
+std::string Data::data_na_string(Data d) { // mo¿na siê tu pobawiæ formatem, jeœli bêdzie trzeba - teraz wypisuje np. 03.05.2025 bez zer
     std::string data;
-    data = std::to_string(d.dzien) + '.' + std::to_string(d.miesiac) + '.' + std::to_string(d.rok);
+    data = (d.dzien < 10 ? std::to_string(0) : "") + std::to_string(d.dzien) + '.' + (d.miesiac < 10 ? std::to_string(0) : "") + std::to_string(d.miesiac) + '.' + std::to_string(d.rok);
     return data;
 }
 

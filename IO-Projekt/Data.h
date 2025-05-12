@@ -37,7 +37,6 @@ public:
 	Data operator+(int dni) const;
 	Data operator-(int dni) const;
 	~Data() = default;
-	bool prawda();
 };
 
 #endif  //_DATA_H
