@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Gosc.h"
 #include "Pracownik.h"
+#include "Data.h"
 
 int main()
 {
