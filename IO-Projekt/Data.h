@@ -13,16 +13,29 @@
 #if !defined(_DATA_H)
 #define _DATA_H
 
+#include <string>
+#include <ctime>
+#include <iostream>
+#include <sstream>
+
 class Data {
 private:
 	int dzien;
 	int miesiac;
 	int rok;
-	int godzina;
-	int minuta;
-	int sekunda;
+	int godzina = 0;
+	int minuta = 0;
+	int sekunda = 0;
 public:
 	Data();
+	Data(int d, int m, int r);
+	Data(int d, int m, int r, int g, int mi, int s);
+	Data(std::string data);
+	static std::string dzis_string();
+	Data dzis();
+	static std::string data_na_string(Data d);
+	Data operator+(int dni) const;
+	Data operator-(int dni) const;
 	~Data() = default;
 };
 
