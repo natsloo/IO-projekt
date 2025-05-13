@@ -31,7 +31,7 @@ void Pracownik::gui() {
 	//system("clear");
     int a;
     do {
-        std::cout << "1. Pokaz katalog.\n2. Aktualizuj katalog.\n3. Wyloguj sie.\n";
+        std::cout << "1. Pokaz katalog.\n2. Aktualizuj katalog.\n3. Wyslij wiadomosc.\n4. Zobacz wiadomosci.\n5. Wyloguj sie.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -44,6 +44,12 @@ void Pracownik::gui() {
             aktualizuj_katalog();
         }
         if (a == 3) {
+            wyslij_wiadomosc();
+        }
+        if (a == 4) {
+            przegladaj_wiadomosci();
+        }
+        if (a == 5) {
             wyloguj();
             break;
         }
