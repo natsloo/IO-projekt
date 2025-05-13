@@ -34,7 +34,7 @@ void Gosc::przegladaj_katalog()
     int ilosc = 10;
     int stop = min(start + ilosc, katalog->get_ilosc_pokoi());
     std::vector<short> indeksy;
-    for (int i = start; i < stop; i++)
+    for (int i = start; i < katalog->get_ilosc_pokoi(); i++)
     {
         indeksy.push_back(i);
     }
@@ -46,17 +46,23 @@ void Gosc::przegladaj_katalog()
             std::cout << "ESC - wyjscie z katlogu\n";
             std::cout << "F - wybierz filtry\n";
             std::cout << "ENTER - wybierz pokoj do rezerwacji\n\n";
+            if (indeksy.size() == 0)
+            {
+                std::cout << "Brak wynikow :(\n";
+            }
             for (int i = start; i < stop; i++)
             {
                 std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis(indeksy[i]) << "\x1b[0m          \n";
             }
             rysuj = false;
+            //std::cout << start << " " << wybor << " " << stop <<" "<< indeksy.size()<< "        \n";
         }
         char klawisz = Ekran::klawisz(); //przeniesc wywolanie funkcji do switch
         switch (klawisz) 
         {
         case STRZALKI:
         {
+            rysuj = true;
             switch (Ekran::klawisz())
             {
             case GORA:
@@ -64,7 +70,6 @@ void Gosc::przegladaj_katalog()
                 if (wybor)
                 {
                     wybor--;
-                    rysuj = true;
                     if (wybor-start < 1)
                     {
                         if (start > 0)
@@ -78,13 +83,12 @@ void Gosc::przegladaj_katalog()
             }
             case DOL:
             {
-                if (wybor < katalog->get_ilosc_pokoi()-3) //zmienic
+                if (wybor < indeksy.size()-1)
                 {
                     wybor++;
-                    rysuj = true;
                     if (stop-wybor < 2)  
                     {
-                        if (stop < katalog->get_ilosc_pokoi() - 2) //zmienic
+                        if (stop < indeksy.size())
                         {
                             start++;
                             stop++;
@@ -105,6 +109,10 @@ void Gosc::przegladaj_katalog()
         }
         case ENTER:
         {
+            if (indeksy.size() == 0)
+            {
+                break;
+            }
             //tu bêdzie rezerwowanie
             break;
         }
@@ -112,6 +120,9 @@ void Gosc::przegladaj_katalog()
         case 'F':
         {
             indeksy = filtruj();
+            start = 0;
+            wybor = 0;
+            stop = min(start + ilosc, indeksy.size());
             rysuj = true;
             system("cls");
             break;
@@ -149,8 +160,8 @@ std::vector<short> Gosc::filtruj()  //dodaæ ¿eby min nie mog³o byæ wiêksze ni¿ m
     system("cls");
     std::vector<short> wyniki;
     int min_liczba_osob=1;
-    Data data_przyjazdu = Data::dzis();
-    Data data_wymeldowania = Data::dzis() + 1;
+    Data data_przyjazdu = Data::dzis() + 1;
+    Data data_wymeldowania = Data::dzis() + 2;
     int min_cena_noc = 0;
     int max_cena_noc = 1000;
     std::vector<std::string> standard = { "family", "basic", "komfort", "apartament", "deluxe" };
@@ -203,12 +214,19 @@ std::vector<short> Gosc::filtruj()  //dodaæ ¿eby min nie mog³o byæ wiêksze ni¿ m
                 }
                 case 1:
                 {
-                    data_przyjazdu = data_przyjazdu - 1;
+                    if (data_przyjazdu > Data::dzis() + 1)
+                    {
+                        data_przyjazdu--;
+                    }
+                    
                     break;
                 }
                 case 2:
                 {
-                    data_wymeldowania = data_wymeldowania - 1;
+                    if (data_wymeldowania > data_przyjazdu + 1)
+                    {
+                        data_wymeldowania--;
+                    }
                     break;
                 }
                 case 3:
@@ -219,7 +237,7 @@ std::vector<short> Gosc::filtruj()  //dodaæ ¿eby min nie mog³o byæ wiêksze ni¿ m
                 }
                 case 4:
                 {
-                    if (max_cena_noc > 200)
+                    if (max_cena_noc > 200 && max_cena_noc > min_cena_noc + 50)
                         max_cena_noc-=50;
                     break;
                 }
@@ -245,17 +263,18 @@ std::vector<short> Gosc::filtruj()  //dodaæ ¿eby min nie mog³o byæ wiêksze ni¿ m
                 }
                 case 1:
                 {
-                    data_przyjazdu = data_przyjazdu + 1;
+                    if (data_przyjazdu + 1 < data_wymeldowania)
+                        data_przyjazdu = data_przyjazdu + 1;
                     break;
                 }
                 case 2:
                 {
-                    data_wymeldowania = data_wymeldowania + 1;
+                    data_wymeldowania++;
                     break;
                 }
                 case 3:
                 {
-                    if (min_cena_noc < 1000)
+                    if (min_cena_noc < 1000 && min_cena_noc + 50 < max_cena_noc)
                         min_cena_noc += 50;
                     break;
                 }
@@ -288,11 +307,11 @@ std::vector<short> Gosc::filtruj()  //dodaæ ¿eby min nie mog³o byæ wiêksze ni¿ m
             auto v3 = katalog->filtruj_wg_standardu(standard[wybor_standard]);
             wyniki = polacz_wyniki_filtrow(v1, v2);
             wyniki = polacz_wyniki_filtrow(wyniki, v3);
-            //for (Data d = data_przyjazdu; d <= data_wymeldowania; d++)
-            //{
-            //    auto v4 = katalog->filtruj_wg_daty(d);
-            //    wyniki = polacz_wyniki_filtrow(wyniki, v4);
-            //}
+            for (Data d = data_przyjazdu; d <= data_wymeldowania; d++)
+            {
+                auto v4 = katalog->filtruj_wg_daty(d);
+                wyniki = polacz_wyniki_filtrow(wyniki, v4);
+            }
             
 
             return wyniki;

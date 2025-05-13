@@ -31,6 +31,11 @@ public:
 	~Pokoj() = default;
 	std::string linia();
 	std::string opis();
+
+	int getNumer();
+	int getMaksymalnaLiczbaOsob();
+	double getCenaZaNoc();
+	std::string getStandardPokoju();
 };
 
 #endif  //_POKOJ_H

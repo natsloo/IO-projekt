@@ -101,22 +101,45 @@ std::shared_ptr<KatalogDlaGosci> KatalogDlaGosci::pobierzInstancjeGosc() {
 
 std::vector<short> Katalog::filtruj_wg_daty(Data data)
 {
-    return std::vector<short>();
+    std::vector<short> wyniki;
+    for (int i = 0; i < pokoje.size(); i++)
+    {
+        wyniki.push_back(i);
+    }
+    return wyniki;
 }
 
 std::vector<short> Katalog::filtruj_wg_ceny(double min, double max)
 {
-    return std::vector<short>();
+    std::vector<short> wyniki;
+    for (int i = 0; i < pokoje.size(); i++)
+    {
+        if(pokoje[i]->getCenaZaNoc() >= min && pokoje[i]->getCenaZaNoc() <= max)
+            wyniki.push_back(i);
+    }
+    return wyniki;
 }
 
 std::vector<short> Katalog::filtruj_wg_ilosci_osob(int ilosc)
 {
-    return std::vector<short>();
+    std::vector<short> wyniki;
+    for (int i = 0; i < pokoje.size(); i++)
+    {
+        if(pokoje[i]->getMaksymalnaLiczbaOsob()>ilosc)
+            wyniki.push_back(i);
+    }
+    return wyniki;
 }
 
 std::vector<short> Katalog::filtruj_wg_standardu(std::string standard)
 {
-    return std::vector<short>();
+    std::vector<short> wyniki;
+    for (int i = 0; i < pokoje.size(); i++)
+    {
+        if(pokoje[i]->getStandardPokoju() == standard)
+            wyniki.push_back(i);
+    }
+    return wyniki;
 }
 
 Rezerwacja Katalog::zarezerwuj() 

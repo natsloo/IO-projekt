@@ -16,3 +16,23 @@ std::string Pokoj::opis()
 {
 	return "Numer pokoju: "+ std::to_string(numer) + ", max liczba osob: " + std::to_string(maksymalna_liczba_osob) + ", cena/noc: " + std::to_string(cena_za_noc) + ", standard: " + standard_pokoju;
 }
+
+int Pokoj::getNumer()
+{
+	return numer;
+}
+
+int Pokoj::getMaksymalnaLiczbaOsob()
+{
+	return maksymalna_liczba_osob;
+}
+
+double Pokoj::getCenaZaNoc()
+{
+	return cena_za_noc;
+}
+
+std::string Pokoj::getStandardPokoju()
+{
+	return standard_pokoju;
+}
