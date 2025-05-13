@@ -20,12 +20,14 @@
 
 class Data {
 private:
-	int dzien;
-	int miesiac;
-	int rok;
+	int dzien = 0;
+	int miesiac = 0;
+	int rok = 0;
 	int godzina = 0;
 	int minuta = 0;
 	int sekunda = 0;
+	bool czy_poprawna_data(int d, int m, int r);
+	bool czy_poprawny_timestamp(int d, int m, int r, int g, int mi, int s);
 public:
 	Data();
 	Data(int d, int m, int r);
@@ -37,6 +39,15 @@ public:
 	std::string string();
 	Data operator+(int dni) const;
 	Data operator-(int dni) const;
+	Data& operator+=(int dni);
+	Data& operator-=(int dni);
+	bool operator<(const Data &d) const;
+	bool operator<=(const Data &d) const;
+	bool operator>(const Data &d) const;
+	bool operator>=(const Data& d) const;
+	bool operator==(const Data& d) const;
+	Data operator++(int);
+	Data operator--(int);
 	~Data() = default;
 };
 
