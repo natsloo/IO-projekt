@@ -17,9 +17,52 @@ Uzytkownik::Uzytkownik()
 
 }
 
+std::pair<std::string, std::string> parse_csv(std::string& linia);
+
+std::pair<bool, std::string> czy_istnieje_taki_user(std::string login) {
+	std::pair<bool, std::string> result;
+	std::string plik[] = { "dane/pracownicy.csv","dane/goscie.csv" };
+	for (int i = 0; i < 2; i++) {
+		std::ifstream p(plik[i]);
+		std::string linia;
+		while (std::getline(p, linia)) {
+			std::pair<std::string, std::string> creds = parse_csv(linia);
+			if (creds.first == login) {
+				result.first = true;
+				result.second = "";
+				p.close();
+				return result;
+			}
+		}
+		p.close();
+	}
+	result.first = false;
+	result.second = "Nie ma takiego u¿ytkownika. Sprobuj ponownie.\n";
+	return result;
+}
+
 void Uzytkownik::wyslij_wiadomosc() 
 {
-
+	std::string adresat;
+	std::pair<bool, std::string> result;
+	do {
+		std::cout << "Podaj odbiorce.\n";
+		std::cin >> adresat;
+		result = czy_istnieje_taki_user(adresat);
+		std::cout << result.second;
+	} while (result.first != true);
+	std::cout << "Podaj tresc wiadomosci. Linia zawierajaca tylko kropke konczy pisanie wiadomosci.\n";
+	std::string linia;
+	std::vector<std::string> tresc;
+	std::getline(std::cin, linia);
+	while (true) {
+		std::getline(std::cin, linia);
+		if (linia == ".") {
+			break;
+		}
+		tresc.push_back(linia);
+	}
+	Wiadomosc w(login, adresat, tresc, Data::dzis());
 }
 
 void Uzytkownik::przegladaj_wiadomosci() 

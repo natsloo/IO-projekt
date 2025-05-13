@@ -57,9 +57,9 @@ std::string Data::dzis_string() {
 Data Data::dzis() {
     std::time_t current_time = std::time(nullptr);
     char buffer[20];  // 20 - wystarczaj¹cy rozmiar na "YYYY-MM-DD HH:MM:SS"
-    std::strftime(buffer, sizeof(buffer), "%d.%m.%Y", std::localtime(&current_time));
+    std::strftime(buffer, sizeof(buffer), "%d.%m.%Y.%H.%M.%S", std::localtime(&current_time));
     std::string data = "";
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
         data += buffer[i];
     }
     std::stringstream ss(data);
@@ -74,7 +74,16 @@ Data Data::dzis() {
     std::getline(ss, token, '.');
     int rok = stoi(token);
 
-    return Data(dzien, miesiac, rok);
+    std::getline(ss, token, '.');
+    int godzina = stoi(token);
+
+    std::getline(ss, token, '.');
+    int minuta = stoi(token);
+
+    std::getline(ss, token, '.');
+    int sekunda = stoi(token);
+
+    return Data(dzien, miesiac, rok, godzina, minuta, sekunda);
 
 }
 
@@ -82,6 +91,13 @@ std::string Data::data_na_string(Data d) {
     std::string data;
     data = (d.dzien < 10 ? std::to_string(0) : "") + std::to_string(d.dzien) + '.' + (d.miesiac < 10 ? std::to_string(0) : "") + std::to_string(d.miesiac) + '.' + std::to_string(d.rok);
     return data;
+}
+
+std::string Data::dzis_timestamp() {
+    std::time_t current_time = std::time(nullptr);
+    char buffer[20];  // 20 - wystarczaj¹cy rozmiar na "YYYY-MM-DD HH:MM:SS"
+    std::strftime(buffer, sizeof(buffer), "%d.%m.%Y %H:%M:%S", std::localtime(&current_time));
+    return std::string(buffer);
 }
 
 std::string Data::string() { 

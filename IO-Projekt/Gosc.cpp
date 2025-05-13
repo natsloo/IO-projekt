@@ -324,7 +324,7 @@ void Gosc::gui() {
     //system("clear");
     int a;
     do {
-        std::cout << "1. Pokaz katalog.\n2. Pokaz historie rezerwacji.\n3. Wyloguj sie.\n";
+        std::cout << "1. Pokaz katalog.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wiadomosci.\n5. Wyloguj sie.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -337,6 +337,12 @@ void Gosc::gui() {
             przegladaj_historie_rezerwacji();
         }
         if (a == 3) {
+            wyslij_wiadomosc();
+        }
+        if (a == 4) {
+            przegladaj_wiadomosci();
+        }
+        if (a == 5) {
             wyloguj();
             break;
         }

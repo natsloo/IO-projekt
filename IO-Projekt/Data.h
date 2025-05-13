@@ -36,6 +36,7 @@ public:
 	static std::string dzis_string();
 	static Data dzis();
 	static std::string data_na_string(Data d);
+	static std::string dzis_timestamp();
 	std::string string();
 	Data operator+(int dni) const;
 	Data operator-(int dni) const;

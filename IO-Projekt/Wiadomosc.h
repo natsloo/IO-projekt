@@ -15,17 +15,28 @@
 
 #include <string>
 #include <memory>
+#include <vector>
+#include <fstream>
+#include <nlohmann/json.hpp>
 #include "Data.h"
+
+using json = nlohmann::json;
 
 class Uzytkownik;
 
 
 class Wiadomosc {
 private:
-	std::shared_ptr<Uzytkownik> adresat;
-	std::shared_ptr<Uzytkownik> nadawca;
-	std::string tresc;
+	std::string adresat;
+	std::string nadawca;
+	std::vector<std::string> tresc;
 	Data data_wyslania;
+	Wiadomosc();
+	void dopisz_do_pliku();
+public:
+	Wiadomosc(std::string nadawca, std::string adresat, std::vector<std::string> tresc, Data data_wyslania);
+	static std::vector<Wiadomosc> odczytaj_wiadomosci(std::string nazwa_uzytkownika);
+	
 };
 
 #endif  //_WIADOMOSC_H

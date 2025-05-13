@@ -138,6 +138,7 @@
     <ClCompile Include="Pracownik.cpp" />
     <ClCompile Include="Rezerwacja.cpp" />
     <ClCompile Include="Uzytkownik.cpp" />
+    <ClCompile Include="Wiadomosc.cpp" />
     <ClCompile Include="WirtualnaRecepcja.cpp" />
   </ItemGroup>
   <ItemGroup>
