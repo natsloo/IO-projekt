@@ -79,6 +79,12 @@ std::string Data::data_na_string(Data d) { // mo¿na siê tu pobawiæ formatem, jeœ
     return data;
 }
 
+std::string Data::string() { // mo¿na siê tu pobawiæ formatem, jeœli bêdzie trzeba - teraz wypisuje np. 03.05.2025 bez zer
+    std::string data;
+    data = (dzien < 10 ? std::to_string(0) : "") + std::to_string(dzien) + '.' + (miesiac < 10 ? std::to_string(0) : "") + std::to_string(miesiac) + '.' + std::to_string(rok);
+    return data;
+}
+
 Data Data::operator+(int dni) const {
     std::tm tm_date = {};
     tm_date.tm_mday = this->dzien + dni;

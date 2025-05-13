@@ -18,6 +18,8 @@
 
 class KatalogDlaGosci {
 public:
+	static std::shared_ptr<KatalogDlaGosci> pobierzInstancjeGosc();
+
 	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) = 0;
 	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ceny(double min, double max) = 0;
 	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ilosci_osob(int ilosc) = 0;
@@ -28,5 +30,7 @@ public:
 	virtual int get_ilosc_pokoi() = 0;
 	virtual std::string get_opis(int indeks) = 0;
 };
+
+
 
 #endif  //_KATALOGDLAGOSCI_H

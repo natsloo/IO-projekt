@@ -95,6 +95,10 @@ std::shared_ptr<Katalog> Katalog::pobierzInstancje() {
     return instancja;
 }
 
+std::shared_ptr<KatalogDlaGosci> KatalogDlaGosci::pobierzInstancjeGosc() {
+    return Katalog::pobierzInstancje();
+}
+
 std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_daty(Data data)
 {
     return std::vector<std::shared_ptr<Pokoj>>();

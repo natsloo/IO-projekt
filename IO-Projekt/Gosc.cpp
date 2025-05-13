@@ -17,7 +17,6 @@
 #define ENTER 13
 
 
-
 #include "Gosc.h"
 
 Gosc::Gosc() {}
@@ -25,12 +24,17 @@ Gosc::Gosc() {}
 void Gosc::przegladaj_katalog() 
 {
     system("cls");
-	auto katalog = std::dynamic_pointer_cast<KatalogDlaGosci>(Katalog::pobierzInstancje());
+    auto katalog = KatalogDlaGosci::pobierzInstancjeGosc();
     bool rysuj = true;
     int wybor = 0;
     int start = 0;
     int ilosc = 10;
     int stop = min(start + ilosc, katalog->get_ilosc_pokoi());
+    std::vector<short> indeksy;
+    for (int i = start; i < stop; i++)
+    {
+        indeksy.push_back(i);
+    }
     while (true)
     {
         if (rysuj)
@@ -39,9 +43,10 @@ void Gosc::przegladaj_katalog()
             std::cout << "ESC - wyjscie z katlogu\n";
             std::cout << "F - wybierz filtry\n";
             std::cout << "ENTER - wybierz pokoj do rezerwacji\n\n";
+            std::cout << "XD\n";
             for (int i = start; i < stop; i++)
             {
-                std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis(i) << "\x1b[0m          \n";
+                std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis(indeksy[i]) << "\x1b[0m          \n";
             }
             rysuj = false;
         }
@@ -58,7 +63,7 @@ void Gosc::przegladaj_katalog()
                 {
                     wybor--;
                     rysuj = true;
-                    if (wybor-start < 2)
+                    if (wybor-start < 1)
                     {
                         if (start > 0)
                         {
@@ -71,13 +76,13 @@ void Gosc::przegladaj_katalog()
             }
             case DOL:
             {
-                if (wybor < katalog->get_ilosc_pokoi()-3)
+                if (wybor < katalog->get_ilosc_pokoi()-3) //zmienic
                 {
                     wybor++;
                     rysuj = true;
                     if (stop-wybor < 2)  
                     {
-                        if (stop < katalog->get_ilosc_pokoi() - 2)
+                        if (stop < katalog->get_ilosc_pokoi() - 2) //zmienic
                         {
                             start++;
                             stop++;
@@ -101,8 +106,12 @@ void Gosc::przegladaj_katalog()
             //tu bêdzie rezerwowanie
             break;
         }
+        case 'f':
         case 'F':
         {
+            indeksy = filtruj();
+            rysuj = true;
+            system("cls");
             break;
         }
         default:
@@ -110,12 +119,70 @@ void Gosc::przegladaj_katalog()
                 std::cout << "Nieznany klawisz: " << (int)klawisz << std::endl; //usun¹æ
             break;
         }
-
-        //Ó -32
-        //H 72 - góra
-        //Ó - 32
-        //P 80 -dó³
     }
+}
+
+std::vector<short> Gosc::filtruj()
+{
+    std::vector<short> wyniki;
+    int min_liczba_osob=0;
+    Data data_przyjazdu = Data::dzis();
+    Data data_wymeldowania = Data::dzis() + 1;
+    int min_cena_noc = 0;
+    int max_cena_noc = 1000;
+    bool rysuj = true;
+    int wybor = 0;
+    while (true)
+    {
+        if (rysuj)
+        {
+            system("cls");
+            std::cout << "Minimalna liczba osob: " << (wybor == 0 ? "\033[38;5;0;48;5;15m" : "") << min_liczba_osob << "\x1b[0m          \n";
+            std::cout << "Data przyjazdu: " << (wybor == 1 ? "\033[38;5;0;48;5;15m" : "") << data_przyjazdu.string() << "\x1b[0m          \n";
+            std::cout << "Data wymeldowania: " << (wybor == 2 ? "\033[38;5;0;48;5;15m" : "") << data_wymeldowania.string() << "\x1b[0m          \n";
+            std::cout << "Minimalna cena za noc: " << (wybor == 3 ? "\033[38;5;0;48;5;15m" : "") << min_cena_noc << "\x1b[0m          \n";
+            std::cout << "Maksymalna cena za noc: " << (wybor == 4 ? "\033[38;5;0;48;5;15m" : "") << max_cena_noc << "\x1b[0m          \n";
+            rysuj = false;
+        }
+        switch (Ekran::klawisz())
+        {
+        case STRZALKI:
+        {
+            switch (Ekran::klawisz())
+            {
+            case GORA:
+            {
+                if (wybor)
+                {
+                    wybor--;
+                    rysuj = true;
+                }
+                break;
+            }
+            case DOL:
+            {
+                if (wybor < 4)
+                {
+                    wybor++;
+                    rysuj = true;
+                }
+                break;
+            }
+            default:
+                break;
+            }
+            break;
+        }
+        case ESC:
+        {
+            system("cls");
+            return wyniki;
+        }
+        default:
+            break;
+        }
+    }
+
 }
 
 void Gosc::przegladaj_historie_rezerwacji() 
@@ -124,9 +191,9 @@ void Gosc::przegladaj_historie_rezerwacji()
 }
 
 
-std::vector<std::shared_ptr<Pokoj>> polacz_wyniki_filtrow(std::vector<std::shared_ptr<Pokoj>> v1, std::vector<std::shared_ptr<Pokoj>> v2)
+std::vector<short> polacz_wyniki_filtrow(std::vector<short> v1, std::vector<short> v2)
 {
-    std::vector<std::shared_ptr<Pokoj>> wynik;
+    std::vector<short> wynik;
 
     for (const auto& p1 : v1) 
     {

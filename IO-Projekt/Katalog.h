@@ -41,11 +41,11 @@ private:
 	void zapisz_pokoje();
 	void zapisz_uslugi();
 
-public:
-	~Katalog() = default;
-
+	std::pair<bool, Rezerwacja> przegladaj_katalog();
 	
 
+public:
+	~Katalog() = default;
 	static std::shared_ptr<Katalog> pobierzInstancje();
 
 	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) override;

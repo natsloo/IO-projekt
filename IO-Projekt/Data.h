@@ -32,8 +32,9 @@ public:
 	Data(int d, int m, int r, int g, int mi, int s);
 	Data(std::string data);
 	static std::string dzis_string();
-	Data dzis();
+	static Data dzis();
 	static std::string data_na_string(Data d);
+	std::string string();
 	Data operator+(int dni) const;
 	Data operator-(int dni) const;
 	~Data() = default;

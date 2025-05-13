@@ -16,16 +16,17 @@
 #include <vector>
 #include <memory>
 #include <stdlib.h>
+#include "Ekran.h"
 #include "Uzytkownik.h"
 #include "Rezerwacja.h"
 #include "KatalogDlaGosci.h"
-#include "Katalog.h"
 
 class Gosc : public Uzytkownik {
 private:
 	std::vector<Rezerwacja> historia_rezerwacji;
 	void przegladaj_katalog();
 	void przegladaj_historie_rezerwacji();
+	std::vector<short> filtruj();
 public:
 	Gosc();
 	~Gosc() = default;
