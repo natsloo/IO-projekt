@@ -85,5 +85,24 @@
             "asdfgh",
             "asdfghj asdfghj asdfghj asdfgh 2365265"
         ]
+    },
+    {
+        "adresat": "lukas",
+        "data": "13.05.2025 20:38:58",
+        "nadwaca": "asdfghjkl",
+        "tresc": [
+            "asdfgh",
+            "asdfgh",
+            "asdfgh",
+            "asdfgh"
+        ]
+    },
+    {
+        "adresat": "lukasz",
+        "data": "13.05.2025 20:41:16",
+        "nadwaca": "asdfghjkl",
+        "tresc": [
+            "kc"
+        ]
     }
 ]
