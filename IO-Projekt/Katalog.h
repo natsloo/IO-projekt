@@ -48,10 +48,10 @@ public:
 	~Katalog() = default;
 	static std::shared_ptr<Katalog> pobierzInstancje();
 
-	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) override;
-	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ceny(double min, double max) override;
-	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ilosci_osob(int ilosc) override;
-	std::vector<std::shared_ptr<Pokoj>> filtruj_wg_standardu() override;
+	std::vector<short> filtruj_wg_daty(Data data) override;
+	std::vector<short> filtruj_wg_ceny(double min, double max) override;
+	std::vector<short> filtruj_wg_ilosci_osob(int ilosc) override;
+	std::vector<short> filtruj_wg_standardu(std::string standard) override;
 	Rezerwacja zarezerwuj() override;
 	void dodaj_pokoj() override;
 	void edytuj_pokoj() override;

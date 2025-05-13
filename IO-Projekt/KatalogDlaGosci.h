@@ -20,10 +20,10 @@ class KatalogDlaGosci {
 public:
 	static std::shared_ptr<KatalogDlaGosci> pobierzInstancjeGosc();
 
-	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_daty(Data data) = 0;
-	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ceny(double min, double max) = 0;
-	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_ilosci_osob(int ilosc) = 0;
-	virtual std::vector<std::shared_ptr<Pokoj>> filtruj_wg_standardu() = 0;
+	virtual std::vector<short> filtruj_wg_daty(Data data) = 0;
+	virtual std::vector<short> filtruj_wg_ceny(double min, double max) = 0;
+	virtual std::vector<short> filtruj_wg_ilosci_osob(int ilosc) = 0;
+	virtual std::vector<short> filtruj_wg_standardu(std::string standard) = 0;
 	virtual Rezerwacja zarezerwuj() = 0;
 	virtual ~KatalogDlaGosci() = default;
 

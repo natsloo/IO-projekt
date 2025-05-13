@@ -99,24 +99,24 @@ std::shared_ptr<KatalogDlaGosci> KatalogDlaGosci::pobierzInstancjeGosc() {
     return Katalog::pobierzInstancje();
 }
 
-std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_daty(Data data)
+std::vector<short> Katalog::filtruj_wg_daty(Data data)
 {
-    return std::vector<std::shared_ptr<Pokoj>>();
+    return std::vector<short>();
 }
 
-std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_ceny(double min, double max)
+std::vector<short> Katalog::filtruj_wg_ceny(double min, double max)
 {
-    return std::vector<std::shared_ptr<Pokoj>>();
+    return std::vector<short>();
 }
 
-std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_ilosci_osob(int ilosc)
+std::vector<short> Katalog::filtruj_wg_ilosci_osob(int ilosc)
 {
-    return std::vector<std::shared_ptr<Pokoj>>();
+    return std::vector<short>();
 }
 
-std::vector<std::shared_ptr<Pokoj>> Katalog::filtruj_wg_standardu()
+std::vector<short> Katalog::filtruj_wg_standardu(std::string standard)
 {
-    return std::vector<std::shared_ptr<Pokoj>>();
+    return std::vector<short>();
 }
 
 Rezerwacja Katalog::zarezerwuj() 
