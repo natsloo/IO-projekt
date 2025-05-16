@@ -478,7 +478,10 @@ void Gosc::gui() {
     //system("clear");
     int a;
     do {
-        std::cout << "1. Pokaz katalog.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wiadomosci.\n5. Wyloguj sie.\n";
+        auto para = Wiadomosc::odczytaj_wiadomosci(this->login);
+        this->wyslane_wiadomosci = para.first;
+        this->odebrane_wiadomosci = para.second;
+        std::cout << "1. Pokaz katalog.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -494,9 +497,12 @@ void Gosc::gui() {
             wyslij_wiadomosc();
         }
         if (a == 4) {
-            przegladaj_wiadomosci();
+            przegladaj_wyslane_wiadomosci();
         }
         if (a == 5) {
+            przegladaj_odebrane_wiadomosci();
+        }
+        if (a == 6) {
             wyloguj();
             break;
         }

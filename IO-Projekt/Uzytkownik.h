@@ -20,6 +20,7 @@
 #include <sstream>
 #include <regex>
 #include "Wiadomosc.h"
+#include "Ekran.h"
 
 
 class Uzytkownik {
@@ -32,7 +33,8 @@ public:
 	Uzytkownik();
 	~Uzytkownik() = default;
 	void wyslij_wiadomosc();
-	void przegladaj_wiadomosci();
+	void przegladaj_wyslane_wiadomosci();
+	void przegladaj_odebrane_wiadomosci();
 	bool zaloguj(std::string plik);
 	void wyloguj();
 	void zarejestruj(std::string plik);

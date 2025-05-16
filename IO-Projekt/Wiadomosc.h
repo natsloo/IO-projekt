@@ -29,13 +29,19 @@ class Wiadomosc {
 private:
 	std::string adresat;
 	std::string nadawca;
+	std::string temat;
 	std::vector<std::string> tresc;
 	Data data_wyslania;
 	Wiadomosc();
 	void dopisz_do_pliku();
 public:
-	Wiadomosc(std::string nadawca, std::string adresat, std::vector<std::string> tresc, Data data_wyslania);
-	static std::vector<Wiadomosc> odczytaj_wiadomosci(std::string nazwa_uzytkownika);
+	Wiadomosc(std::string nadawca, std::string adresat, std::string temat, std::vector<std::string> tresc, Data data_wyslania, bool zapisz = false);
+	static std::pair<std::vector<Wiadomosc>,std::vector<Wiadomosc>> odczytaj_wiadomosci(std::string nazwa_uzytkownika);
+	std::string getAdresat();
+	std::string getNadawca();
+	std::string getTemat();
+	std::vector<std::string> getTresc();
+	Data getDataWyslania();
 	
 };
 
