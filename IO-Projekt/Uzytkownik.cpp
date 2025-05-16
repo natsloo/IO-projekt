@@ -12,6 +12,15 @@
 
 #include "Uzytkownik.h"
 
+#define STRZALKI -32
+#define GORA 72
+#define DOL 80
+#define LEWO 75
+#define PRAWO 77
+#define ESC 27
+#define ENTER 13
+
+
 Uzytkownik::Uzytkownik() 
 {
 
@@ -37,7 +46,7 @@ std::pair<bool, std::string> czy_istnieje_taki_user(std::string login) {
 		p.close();
 	}
 	result.first = false;
-	result.second = "Nie ma takiego u¿ytkownika. Sprobuj ponownie.\n";
+	result.second = "Nie ma takiego uzytkownika. Sprobuj ponownie.\n";
 	return result;
 }
 
@@ -48,13 +57,25 @@ void Uzytkownik::wyslij_wiadomosc()
 	do {
 		std::cout << "Podaj odbiorce.\n";
 		std::cin >> adresat;
+		std::cin.ignore();
 		result = czy_istnieje_taki_user(adresat);
 		std::cout << result.second;
 	} while (result.first != true);
+	std::string temat;
+	bool tematlen = false;
+	do {
+		std::cout << "Podaj temat. Nie moze byc dluzszy niz 30 znakow.\n";
+		std::getline(std::cin, temat);
+		if (temat.length() <= 30) {
+			tematlen = true;
+		}
+		else {
+			std::cout << "Temat dluzszy niz 30 znakow!\n";
+		}
+	} while (!tematlen);
 	std::cout << "Podaj tresc wiadomosci. Linia zawierajaca tylko kropke konczy pisanie wiadomosci.\n";
 	std::string linia;
 	std::vector<std::string> tresc;
-	std::getline(std::cin, linia);
 	while (true) {
 		std::getline(std::cin, linia);
 		if (linia == ".") {
@@ -62,12 +83,246 @@ void Uzytkownik::wyslij_wiadomosc()
 		}
 		tresc.push_back(linia);
 	}
-	Wiadomosc w(login, adresat, tresc, Data::dzis());
+	Wiadomosc w(login, adresat, temat, tresc, Data::dzis(), true);
 }
 
-void Uzytkownik::przegladaj_wiadomosci() 
-{
+std::string spacja(int naj) {
+	std::string s = "";
+	for (int i = 0; i < naj; i++) {
+		s += " ";
+	}
+	return s;
+}
 
+void Uzytkownik::przegladaj_wyslane_wiadomosci() 
+{
+	system("cls");
+
+	int najdluzszy = 0;
+	int najad = 0;
+	for (auto& w : wyslane_wiadomosci) {
+		if (w.getTemat().length() > najdluzszy) {
+			najdluzszy = w.getTemat().length();
+		}
+		if (w.getAdresat().length() > najad) {
+			najad = w.getAdresat().length();
+		}
+	}
+
+	bool rysuj = true;
+	int wybor = 0;
+	int start = 0;
+	int ilosc = 10;
+	int stop = min(start + ilosc, wyslane_wiadomosci.size()); 
+
+	while (true)
+	{
+		if (rysuj)
+		{
+			std::cout << "\033[" << 0 << ";" << 0 << "H";
+			std::cout << "ESC - powrot do menu\n";
+			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
+			if (wyslane_wiadomosci.size() == 0) 
+			{
+				std::cout << "Brak wynikow :(\n";
+			}
+			for (int i = start; i < stop; i++)
+			{
+				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") 
+					<< wyslane_wiadomosci[i].getAdresat() << spacja(najad - wyslane_wiadomosci[i].getAdresat().length() + 4) << wyslane_wiadomosci[i].getTemat()
+					<< spacja(najdluzszy - wyslane_wiadomosci[i].getTemat().length() + 4)
+					<< Data::data_na_string(wyslane_wiadomosci[i].getDataWyslania()) 
+					<< "\t" << "\x1b[0m          \n";
+			}
+			rysuj = false;
+		}
+		switch (Ekran::klawisz())
+		{
+		case STRZALKI:
+		{
+			rysuj = true;
+			switch (Ekran::klawisz())
+			{
+			case GORA:
+			{
+				if (wybor)
+				{
+					wybor--;
+					if (wybor - start < 1)
+					{
+						if (start > 0)
+						{
+							start--;
+							stop--;
+						}
+					}
+				}
+				break;
+			}
+			case DOL:
+			{
+				if (wybor < wyslane_wiadomosci.size() - 1)
+				{
+					wybor++;
+					if (stop - wybor < 2)
+					{
+						if (stop < wyslane_wiadomosci.size())
+						{
+							start++;
+							stop++;
+						}
+					}
+				}
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		case ESC:
+		{
+			system("cls");
+			return;
+		}
+		case ENTER:
+		{
+			if (wyslane_wiadomosci.size() == 0) 
+			{
+				break;
+			}
+			system("cls");
+			std::cout << "Data wyslania : " << Data::data_na_string(wyslane_wiadomosci[wybor].getDataWyslania()) << "\n";
+			std::cout << "Nadwaca: " << wyslane_wiadomosci[wybor].getNadawca() << "\t" << "Adresat: " << wyslane_wiadomosci[wybor].getAdresat() << "\n";
+			std::cout << "Temat: " << wyslane_wiadomosci[wybor].getTemat() << "\n-----------------------------------------------------\nTresc:\n\n";
+			for (auto& l : wyslane_wiadomosci[wybor].getTresc()) {
+				std::cout << l << "\n";
+			}
+			std::cout << "\n";
+			system("pause");
+			system("cls");
+			rysuj = true;
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+
+void Uzytkownik::przegladaj_odebrane_wiadomosci() {
+
+	system("cls");
+
+	int najdluzszy = 0;
+	int najad = 0;
+	for (auto& w : odebrane_wiadomosci) {
+		if (w.getTemat().length() > najdluzszy) {
+			najdluzszy = w.getTemat().length();
+		}
+		if (w.getAdresat().length() > najad) {
+			najad = w.getAdresat().length();
+		}
+	}
+
+	bool rysuj = true;
+	int wybor = 0;
+	int start = 0;
+	int ilosc = 10;
+	int stop = min(start + ilosc, odebrane_wiadomosci.size());
+
+	while (true)
+	{
+		if (rysuj)
+		{
+			std::cout << "\033[" << 0 << ";" << 0 << "H";
+			std::cout << "ESC - powrot do menu\n";
+			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
+			if (odebrane_wiadomosci.size() == 0) 
+			{
+				std::cout << "Brak wynikow :(\n";
+			}
+			for (int i = start; i < stop; i++)
+			{
+				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << odebrane_wiadomosci[i].getAdresat() << spacja(najad - odebrane_wiadomosci[i].getAdresat().length() + 4) << odebrane_wiadomosci[i].getTemat()
+					<< spacja(najdluzszy - odebrane_wiadomosci[i].getTemat().length() + 4)
+					<< Data::data_na_string(odebrane_wiadomosci[i].getDataWyslania())
+					<< "\t" << "\x1b[0m          \n";
+			}
+			rysuj = false;
+		}
+		switch (Ekran::klawisz())
+		{
+		case STRZALKI:
+		{
+			rysuj = true;
+			switch (Ekran::klawisz())
+			{
+			case GORA:
+			{
+				if (wybor)
+				{
+					wybor--;
+					if (wybor - start < 1)
+					{
+						if (start > 0)
+						{
+							start--;
+							stop--;
+						}
+					}
+				}
+				break;
+			}
+			case DOL:
+			{
+				if (wybor < odebrane_wiadomosci.size() - 1)
+				{
+					wybor++;
+					if (stop - wybor < 2)
+					{
+						if (stop < odebrane_wiadomosci.size())
+						{
+							start++;
+							stop++;
+						}
+					}
+				}
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		case ESC:
+		{
+			system("cls");
+			return;
+		}
+		case ENTER:
+		{
+			if (odebrane_wiadomosci.size() == 0)
+			{
+				break;
+			}
+			system("cls");
+			std::cout << "Data wyslania : " << Data::data_na_string(odebrane_wiadomosci[wybor].getDataWyslania()) << "\n";
+			std::cout << "Nadwaca: " << odebrane_wiadomosci[wybor].getNadawca() << "\t" << "Adresat: " << odebrane_wiadomosci[wybor].getAdresat() << "\n";
+			std::cout << "Temat: " << odebrane_wiadomosci[wybor].getTemat() << "\n-----------------------------------------------------\nTresc:\n\n";
+			for (auto& l : odebrane_wiadomosci[wybor].getTresc()) {
+				std::cout << l << "\n";
+			}
+			std::cout << "\n";
+			system("pause");
+			system("cls");
+			rysuj = true;
+			break;
+		}
+		default:
+			break;
+		}
+	}
 }
 
 std::pair<std::string, std::string> parse_csv(std::string& linia) {
