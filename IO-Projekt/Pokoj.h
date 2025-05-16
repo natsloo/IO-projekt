@@ -36,6 +36,7 @@ public:
 	int getMaksymalnaLiczbaOsob();
 	double getCenaZaNoc();
 	std::string getStandardPokoju();
+	std::vector<Data> getNiedostepneDaty();
 };
 
 #endif  //_POKOJ_H

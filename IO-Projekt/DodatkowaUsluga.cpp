@@ -9,3 +9,8 @@ std::string DodatkowaUsluga::linia() {
 	std::string linia = nazwa + ',' + std::to_string(cena);
 	return linia;
 }
+
+std::string DodatkowaUsluga::opis() {
+	std::string linia = std::to_string(cena) + "    " + nazwa;
+	return linia;
+}

@@ -22,14 +22,16 @@
 
 class Rezerwacja {
 private:
-	Data data;
+	std::string uzytkownik;
+	Data data_przyjazdu;
+	Data data_wymeldowania;
 	int status_rezerwacji;
 	int liczba_osob;
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	std::shared_ptr<Pokoj> pokoj;
 	std::shared_ptr<Platnosc> platnosc;
 public:
-	Rezerwacja();
+	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa = false);
 	~Rezerwacja() = default;
 	Platnosc zaplac();
 	void pokaz_szczegoly();

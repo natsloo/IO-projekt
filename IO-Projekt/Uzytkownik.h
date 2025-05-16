@@ -23,7 +23,7 @@
 
 
 class Uzytkownik {
-private:
+protected:
 	std::string login;
 	std::string haslo;
 	std::vector<Wiadomosc> wyslane_wiadomosci;

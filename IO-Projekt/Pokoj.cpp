@@ -36,3 +36,8 @@ std::string Pokoj::getStandardPokoju()
 {
 	return standard_pokoju;
 }
+
+std::vector<Data> Pokoj::getNiedostepneDaty()
+{
+	return niedostepne_daty;
+}

@@ -41,9 +41,6 @@ private:
 	void zapisz_pokoje();
 	void zapisz_uslugi();
 
-	std::pair<bool, Rezerwacja> przegladaj_katalog();
-	
-
 public:
 	~Katalog() = default;
 	static std::shared_ptr<Katalog> pobierzInstancje();
@@ -52,7 +49,7 @@ public:
 	std::vector<short> filtruj_wg_ceny(double min, double max) override;
 	std::vector<short> filtruj_wg_ilosci_osob(int ilosc) override;
 	std::vector<short> filtruj_wg_standardu(std::string standard) override;
-	Rezerwacja zarezerwuj() override;
+	Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi) override;
 	void dodaj_pokoj() override;
 	void edytuj_pokoj() override;
 	void usun_pokoj() override;
@@ -62,6 +59,8 @@ public:
 
 	int get_ilosc_pokoi() override;
 	std::string get_opis(int indeks) override;
+	int get_ilosc_uslug() override;
+	std::string get_opis_uslugi(int indeks) override;
 };
 
 #endif  //_KATALOG_H

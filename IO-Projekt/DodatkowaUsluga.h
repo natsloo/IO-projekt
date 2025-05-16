@@ -24,6 +24,7 @@ public:
 	DodatkowaUsluga(std::string nazwa, double cena);
 	~DodatkowaUsluga() = default;
 	std::string linia();
+	std::string opis();
 };
 
 #endif  //_DODATKOWAUSLUGA_H

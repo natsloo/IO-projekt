@@ -13,10 +13,24 @@
 #include "Rezerwacja.h"
 #include "Platnosc.h"
 
-Rezerwacja::Rezerwacja()
+Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa)
 {
+	this->uzytkownik = uzytkownik;
+	this->data_przyjazdu = data_przyjazdu;
+	this->data_wymeldowania = data_wymeldowania;
+	this->pokoj = pokoj;
+	this->dodatkowe_uslugi = dodatkowe_uslugi;  // do jsona wpisujesz vector nazw us³ug (podobnie jak vector linni w treœci wiadomoœci)
 
+	std::cout << uzytkownik << " " << data_przyjazdu.string() << " " << data_wymeldowania.string() << " " << pokoj->getNumer() << " " << dodatkowe_uslugi.size();
+	system("pause");
+	//if nowa, dopisz do pliku .json, do pliku wpisz numer pokoju czy coœ 
 }
+
+
+//dodaæ statyczn¹ metodê do odczytu z pliku po uzytkowniku tak jak przy wiadomoœciach, w konstruktorze goœcia wczytaj wszystkie jego rezerwacje 
+
+//dodaæ statyczn¹ metodê która przyjmie indeks pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
+//w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
 
 Platnosc Rezerwacja::zaplac() 
 {

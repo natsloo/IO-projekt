@@ -104,7 +104,18 @@ std::vector<short> Katalog::filtruj_wg_daty(Data data)
     std::vector<short> wyniki;
     for (int i = 0; i < pokoje.size(); i++)
     {
-        wyniki.push_back(i);
+        bool found=false;
+        for (auto& d : pokoje[i]->getNiedostepneDaty())
+        {
+            if (d == data)
+            {
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            wyniki.push_back(i);
+        }
     }
     return wyniki;
 }
@@ -125,7 +136,7 @@ std::vector<short> Katalog::filtruj_wg_ilosci_osob(int ilosc)
     std::vector<short> wyniki;
     for (int i = 0; i < pokoje.size(); i++)
     {
-        if(pokoje[i]->getMaksymalnaLiczbaOsob()>ilosc)
+        if(pokoje[i]->getMaksymalnaLiczbaOsob()>=ilosc)
             wyniki.push_back(i);
     }
     return wyniki;
@@ -136,15 +147,24 @@ std::vector<short> Katalog::filtruj_wg_standardu(std::string standard)
     std::vector<short> wyniki;
     for (int i = 0; i < pokoje.size(); i++)
     {
-        if(pokoje[i]->getStandardPokoju() == standard)
+        if(standard == "all" || pokoje[i]->getStandardPokoju() == standard)
             wyniki.push_back(i);
     }
     return wyniki;
 }
 
-Rezerwacja Katalog::zarezerwuj() 
+Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi)
 {
-	return Rezerwacja();
+    std::vector<DodatkowaUsluga> dus;
+    for (auto& u : uslugi)
+    {
+        dus.push_back(this->uslugi[u]);
+    }
+    Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, true);
+    //dodaæ niedostepne daty do pokoju
+
+
+	return r;
 }
 
 void Katalog::dodaj_pokoj() 
@@ -191,3 +211,18 @@ std::string Katalog::get_opis(int indeks)
     }
     return pokoje[indeks]->opis();
 }
+
+int Katalog::get_ilosc_uslug()
+{
+    return uslugi.size();
+}
+
+std::string Katalog::get_opis_uslugi(int indeks)
+{
+    if ((indeks < 0) || (indeks > uslugi.size() - 1))
+    {
+        return "error";
+    }
+    return uslugi[indeks].opis();
+}
+
