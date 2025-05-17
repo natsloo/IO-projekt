@@ -31,6 +31,10 @@ public:
 	virtual std::string get_opis(int indeks) = 0;
 	virtual int get_ilosc_uslug() = 0;
 	virtual std::string get_opis_uslugi(int indeks) = 0;
+	
+	virtual int get_numer(int indeks) = 0;
+	virtual double get_cena(int indeks) = 0;
+	virtual double get_cena_uslugi(int indeks) = 0;
 };
 
 

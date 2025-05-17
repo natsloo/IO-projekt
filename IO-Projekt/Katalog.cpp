@@ -30,7 +30,10 @@ DodatkowaUsluga parse_csv_uslugi(std::string& linia) {
     std::getline(ss, token, ',');
     int cena = stoi(token);
 
-    return DodatkowaUsluga(nazwa, cena);
+    std::getline(ss, token, ',');
+    bool jednorazowe = stoi(token);
+
+    return DodatkowaUsluga(nazwa, cena, jednorazowe);
 }
 
 std::shared_ptr<Pokoj> parse_csv_pokoj(std::string& linia) {
@@ -161,7 +164,7 @@ Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data
         dus.push_back(this->uslugi[u]);
     }
     Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, true);
-    //dodaæ niedostepne daty do pokoju
+    //TODO: dodaæ niedostepne daty do pokoju
 
 
 	return r;
@@ -226,3 +229,31 @@ std::string Katalog::get_opis_uslugi(int indeks)
     return uslugi[indeks].opis();
 }
 
+int Katalog::get_numer(int indeks) {
+    return pokoje[indeks]->getNumer();
+}
+
+double Katalog::get_cena(int indeks) {
+    return pokoje[indeks]->getCenaZaNoc();
+}
+
+double Katalog::get_cena_uslugi(int indeks) {
+    return uslugi[indeks].get_cena();
+}
+
+std::vector<std::shared_ptr<Pokoj>> Katalog::get_vector_pokoi()
+{
+    return pokoje;
+}
+
+std::shared_ptr<Pokoj> Katalog::get_pokoj(int numer)
+{
+    auto k = Katalog::pobierzInstancje();
+    for (auto& p : k->get_vector_pokoi())
+    {
+        if (numer == p->getNumer())
+        {
+            return p;
+        }
+    }
+}

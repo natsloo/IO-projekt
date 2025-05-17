@@ -12,7 +12,9 @@
 
 #include "Rezerwacja.h"
 #include "Platnosc.h"
+#include "Katalog.h"
 
+//TODO: zmiana argumentow - Pokoj??
 Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa)
 {
 	this->uzytkownik = uzytkownik;
@@ -21,16 +23,73 @@ Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wy
 	this->pokoj = pokoj;
 	this->dodatkowe_uslugi = dodatkowe_uslugi;  // do jsona wpisujesz vector nazw us³ug (podobnie jak vector linni w treœci wiadomoœci)
 
-	std::cout << uzytkownik << " " << data_przyjazdu.string() << " " << data_wymeldowania.string() << " " << pokoj->getNumer() << " " << dodatkowe_uslugi.size();
-	system("pause");
+	//std::cout << uzytkownik << " " << data_przyjazdu.string() << " " << data_wymeldowania.string() << " " << pokoj->getNumer() << " " << dodatkowe_uslugi.size();
+	//system("pause");
 	//if nowa, dopisz do pliku .json, do pliku wpisz numer pokoju czy coœ 
+	if (nowa) {
+		dopisz_do_pliku();
+	}
 }
 
+void Rezerwacja::dopisz_do_pliku() {
+	std::vector<std::string> dus;
+	for (int i = 0; i < dodatkowe_uslugi.size(); i++) {
+		dus.push_back(dodatkowe_uslugi[i].get_nazwa());
+	}
+	json j;
+	j["nazwa uzytkownika"] = uzytkownik;
+	j["data przyjazdu"] = Data::data_na_string(data_przyjazdu);
+	j["data wymeldowania"] = Data::data_na_string(data_wymeldowania);
+	j["pokoj"] = pokoj->getNumer();
+	j["dodatkowe uslugi"] = dus;
 
-//dodaæ statyczn¹ metodê do odczytu z pliku po uzytkowniku tak jak przy wiadomoœciach, w konstruktorze goœcia wczytaj wszystkie jego rezerwacje 
+	json wszystkie_rezerwacje = json::array();
+	std::ifstream plik_in("dane/rezerwacje.json");
+	if (plik_in.is_open()) {
+		plik_in >> wszystkie_rezerwacje;
+		if (!wszystkie_rezerwacje.is_array()) {
+			wszystkie_rezerwacje = json::array();
+		}
+		plik_in.close();
+	}
 
-//dodaæ statyczn¹ metodê która przyjmie indeks pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
-//w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
+	wszystkie_rezerwacje.push_back(j);
+
+	std::ofstream plik_out("dane/rezerwacje.json");
+	if (plik_out.is_open()) {
+		plik_out << wszystkie_rezerwacje.dump(4);
+		plik_out.close();
+	}
+}
+
+//TODO: dodaæ statyczn¹ metodê do odczytu z pliku po uzytkowniku tak jak przy wiadomoœciach, w konstruktorze goœcia wczytaj wszystkie jego rezerwacje 
+std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytkownika) {
+	json wszystkie_rezerwacje = json::array();
+	std::ifstream plik_in("dane/rezerwacje.json");
+	if (plik_in.is_open()) {
+		plik_in >> wszystkie_rezerwacje;
+		if (!wszystkie_rezerwacje.is_array()) {
+			wszystkie_rezerwacje = json::array();
+		}
+		plik_in.close();
+	}
+	std::vector<Rezerwacja> uzytkownik_rez;
+	for (auto& w : wszystkie_rezerwacje) {
+		if (w["nazwa uzytkownika"] == nazwa_uzytkownika) {
+			std::vector<DodatkowaUsluga> dus;  //TODO: rozwi¹zanie tymczasowe, dodaæ statyczn¹ metodê do katalogu i pobieraæ tak samo jak wskaŸnik na pokoje (ale tu nie wskaŸnik, tylko kopiowac obiekt)
+			for (auto& a : w["dodatkowe uslugi"])
+			{
+				dus.emplace_back(a, 0, 0);
+			}
+
+			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus);
+			uzytkownik_rez.push_back(rez);
+		}
+	}
+	return uzytkownik_rez;
+}
+//TODO: dodaæ statyczn¹ metodê która przyjmie NUMER pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
+//TODO: w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
 
 Platnosc Rezerwacja::zaplac() 
 {
@@ -39,6 +98,13 @@ Platnosc Rezerwacja::zaplac()
 
 void Rezerwacja::pokaz_szczegoly() 
 {
+	std::cout << "Rezerwacja na termin: " << Data::data_na_string(data_przyjazdu) << " - " << Data::data_na_string(data_wymeldowania) << "\n";
+	std::cout << "Pokoj nr: " << pokoj->getNumer() << "\n"; //TODO: wiecej info o pokoju?
+	std::cout << "Dodatkowe uslugi:" << "\n";
+	std::cout << "Ilosc:" << dodatkowe_uslugi.size() << "\n";
+	for (int i = 0; i < dodatkowe_uslugi.size(); i++) {
+		std::cout << i + 1 << ". " << dodatkowe_uslugi[i].opis() << "\n";
+	}
 
 }
 
@@ -52,3 +118,10 @@ void Rezerwacja::zmien_dane()
 
 }
 
+Data Rezerwacja::get_data_przyjazdu() {
+	return data_przyjazdu;
+}
+
+Data Rezerwacja::get_data_wymeldowania() {
+	return data_wymeldowania;
+}

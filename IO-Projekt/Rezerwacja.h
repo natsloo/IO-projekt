@@ -15,10 +15,15 @@
 
 #include <vector>
 #include <memory>
+#include <nlohmann/json.hpp>
+#include <fstream>
 #include "Platnosc.h"
 #include "Data.h"
 #include "DodatkowaUsluga.h"
 #include "Pokoj.h"
+
+
+using json = nlohmann::json;
 
 class Rezerwacja {
 private:
@@ -30,6 +35,7 @@ private:
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	std::shared_ptr<Pokoj> pokoj;
 	std::shared_ptr<Platnosc> platnosc;
+	void dopisz_do_pliku();
 public:
 	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa = false);
 	~Rezerwacja() = default;
@@ -37,6 +43,10 @@ public:
 	void pokaz_szczegoly();
 	void anuluj();
 	void zmien_dane();
+	Data get_data_przyjazdu();
+	Data get_data_wymeldowania();
+	static std::vector<Rezerwacja> odczytaj_rezerwacje(std::string nazwa_uzytkownika);
+
 };
 
 #endif  //_REZERWACJA_H

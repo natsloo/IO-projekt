@@ -1,0 +1,27 @@
+[
+    {
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "19.05.2025",
+        "dodatkowe uslugi": [],
+        "nazwa uzytkownika": "natalia",
+        "pokoj": 101
+    },
+    {
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "19.05.2025",
+        "dodatkowe uslugi": [
+            "silownia hotelowa za jedna dobe",
+            "wejscia przez caly pobyt na basen i plaze hotelowa",
+            "strzezony parking hotelowy przez caly pobyt",
+            "dostep do pralni",
+            "wypozyczenie roweru na dzien",
+            "wypozyczenie kajaka na dzien",
+            "telewizja za jedna dobe",
+            "minibar za caly pobyt",
+            "butelka szampana",
+            "butelka wina"
+        ],
+        "nazwa uzytkownika": "natalia",
+        "pokoj": 105
+    }
+]

@@ -5,6 +5,8 @@ Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::str
 	this->maksymalna_liczba_osob = maksymalna_liczba_osob;
 	this->cena_za_noc = cena_za_noc;
 	this->standard_pokoju = standard_pokoju;
+
+	//TODO: dodaæ sprawdzenie niedostepnych dat na podstawie numeru
 }
 
 std::string Pokoj::linia() {

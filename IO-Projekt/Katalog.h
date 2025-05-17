@@ -61,6 +61,13 @@ public:
 	std::string get_opis(int indeks) override;
 	int get_ilosc_uslug() override;
 	std::string get_opis_uslugi(int indeks) override;
+	int get_numer(int indeks) override;
+	double get_cena(int indeks) override;
+	double get_cena_uslugi(int indeks) override;
+
+
+	std::vector<std::shared_ptr<Pokoj>> get_vector_pokoi();
+	static std::shared_ptr<Pokoj> get_pokoj(int numer);
 };
 
 #endif  //_KATALOG_H

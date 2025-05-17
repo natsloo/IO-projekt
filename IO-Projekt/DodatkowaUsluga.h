@@ -19,12 +19,16 @@ class DodatkowaUsluga {
 private:
 	std::string nazwa;
 	double cena;
+	bool jednorazowe;
 public:
 	DodatkowaUsluga();
-	DodatkowaUsluga(std::string nazwa, double cena);
+	DodatkowaUsluga(std::string nazwa, double cena, bool jednorazowe);
 	~DodatkowaUsluga() = default;
 	std::string linia();
 	std::string opis();
+	bool get_jednorazowe();
+	double get_cena();
+	std::string get_nazwa();
 };
 
 #endif  //_DODATKOWAUSLUGA_H
