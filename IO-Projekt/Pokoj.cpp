@@ -7,7 +7,6 @@ Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::str
 	this->cena_za_noc = cena_za_noc;
 	this->standard_pokoju = standard_pokoju;
 	this->niedostepne_daty = Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(numer);
-	//TODO: dodaæ sprawdzenie niedostepnych dat na podstawie numeru
 }
 
 std::string Pokoj::linia() {
@@ -49,4 +48,8 @@ void Pokoj::set_niedostepne(Data d1, Data d2) {
 	for (Data d = d1; d <= d2; d++) {
 		niedostepne_daty.push_back(d);
 	}
+}
+
+void Pokoj::przeladuj_pokoj() {
+	this->niedostepne_daty = Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(numer);
 }

@@ -153,18 +153,15 @@ std::vector<short> Katalog::filtruj_wg_standardu(std::string standard)
     return wyniki;
 }
 
-Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi)
+Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi, double cena)
 {
     std::vector<DodatkowaUsluga> dus;
     for (auto& u : uslugi)
     {
         dus.push_back(this->uslugi[u]);
     }
-    Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, "do oplacenia", true);
-    //TODO: dodaæ niedostepne daty do pokoju
+    Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, "do oplacenia", cena, true); //TODO
     pokoje[pokoj]->set_niedostepne(data_przyjazdu, data_wymeldowania);
-
-
 	return r;
 }
 
@@ -253,5 +250,13 @@ std::shared_ptr<Pokoj> Katalog::get_pokoj(int numer)
         {
             return p;
         }
+    }
+}
+
+void Katalog::przeladuj_pokoje() {
+    auto k = Katalog::pobierzInstancje();
+    for (auto& p : k->get_vector_pokoi())
+    {
+        p->przeladuj_pokoj();
     }
 }

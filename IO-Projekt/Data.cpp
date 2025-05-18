@@ -36,6 +36,7 @@ Data::Data(std::string data) {
 
     std::getline(ss, token, '.');
     int rok = stoi(token);
+
     if (czy_poprawna_data(dzien, miesiac, rok)) {
         this->dzien = dzien;
         this->miesiac = miesiac;

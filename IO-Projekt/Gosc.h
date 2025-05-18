@@ -29,7 +29,7 @@ private:
 	std::vector<short> filtruj(std::shared_ptr<Data> data_przyjazdu, std::shared_ptr<Data> data_wymeldowania);
 	std::shared_ptr<KatalogDlaGosci> katalog;
 	void zarezerwuj(Data data_przyjazdu, Data data_wymeldowania, int pokoj);
-	std::vector<short> dobierz_uslugi();
+	void dobierz_uslugi(std::vector<bool>& wybrane);
 	std::vector<short> zastosuj_filtry(Data data_przyjazdu, Data data_wymeldowania, int min_cena_noc, int max_cena_noc, int min_liczba_osob, std::string standard);
 public:
 	Gosc();

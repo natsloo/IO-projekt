@@ -38,6 +38,7 @@ public:
 	std::string getStandardPokoju();
 	std::vector<Data> getNiedostepneDaty();
 	void set_niedostepne(Data d1, Data d2);
+	void przeladuj_pokoj();
 };
 
 #endif  //_POKOJ_H

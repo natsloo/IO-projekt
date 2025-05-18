@@ -174,6 +174,7 @@ std::vector<short> Gosc::filtruj(std::shared_ptr<Data> data_przyjazdu, std::shar
         {
             std::cout << "\033[" << 0 << ";" << 0 << "H";
             std::cout << "R - resetuj wszystkie filtry\n";
+            std::cout << "STRZALKI - przechodzenie po filtrach i ich zmiana\n";
             std::cout << "ENTER - zatwierdz filtry\n\n\n";
             std::cout << "Minimalna liczba osob: " << (wybor == 0 ? "\033[38;5;0;48;5;15m" : "") << min_liczba_osob << "\x1b[0m          \n";
             std::cout << "Data przyjazdu: " << (wybor == 1 ? "\033[38;5;0;48;5;15m" : "") << data_przyjazdu->string() << "\x1b[0m          \n";
@@ -338,23 +339,27 @@ std::vector<short> Gosc::zastosuj_filtry(Data data_przyjazdu, Data data_wymeldow
 void Gosc::zarezerwuj(Data data_przyjazdu, Data data_wymeldowania, int pokoj)
 {
     system("cls");
+    std::vector<bool> wybrane(katalog->get_ilosc_uslug(), false);
     bool rysuj = true;
     std::vector<short> uslugi;
     double uslugi_cena = 0;
+    double cena = 0;
     while (true)
     {
         if (rysuj)
         {
+            uslugi_cena = 0;
             for (int i = 0; i < uslugi.size(); i++) {
                 uslugi_cena += katalog->get_cena_uslugi(uslugi[i]);
             }
+            cena = katalog->get_cena(pokoj) + uslugi_cena;
             std::cout << "\033[" << 0 << ";" << 0 << "H";
             std::cout << "D - wybierz uslugi dodatkowe\n";
             std::cout << "ESC - anuluj rezerwacje\n";
             std::cout << "ENTER - potwierdz rezerwacje\n\n";
             std::cout << "TWOJA REZERWACJA:\n-----------------------------------\n" << Data::data_na_string(data_przyjazdu) << " - " << Data::data_na_string(data_wymeldowania) << "\n";
             std::cout << "Pokoj nr " << katalog->get_numer(pokoj) << "\nIlosc dodatkowych uslug: " << uslugi.size() << "\n";
-            std::cout << "Cena laczna: " << katalog->get_cena(pokoj) + uslugi_cena << "\n";
+            std::cout << "Cena laczna: " << cena << "\n";
             rysuj = false;
         }
         switch (Ekran::klawisz())
@@ -366,13 +371,19 @@ void Gosc::zarezerwuj(Data data_przyjazdu, Data data_wymeldowania, int pokoj)
         case 'd':
         case 'D':
         {
-            uslugi = dobierz_uslugi();
+            dobierz_uslugi(wybrane);
+            uslugi.clear();
+            for (int i = 0; i < wybrane.size(); i++)
+            {
+                if (wybrane[i])
+                    uslugi.push_back(i);
+            }
             rysuj = true;
             break;
         }
         case ENTER:
         {
-            historia_rezerwacji.push_back(katalog->zarezerwuj(this->login, data_przyjazdu, data_wymeldowania, pokoj, uslugi));
+            historia_rezerwacji.push_back(katalog->zarezerwuj(this->login, data_przyjazdu, data_wymeldowania, pokoj, uslugi, cena));
             return;
         }
         }
@@ -388,16 +399,15 @@ std::string spacje(int naj) {
     return s;
 }
 
-std::vector<short> Gosc::dobierz_uslugi()
+void Gosc::dobierz_uslugi(std::vector<bool>& wybrane)
 {
-    std::vector<short> wyniki;
     system("cls");
     bool rysuj = true;
     int wybor = 0;
     int start = 0;
     int ilosc = 10;
     int stop = min(start + ilosc, katalog->get_ilosc_uslug());
-    std::vector<bool> wybrane(katalog->get_ilosc_uslug(), false);
+    
 
     int najdluzszy = 0;
     for (int i = 0; i < katalog->get_ilosc_uslug(); i++) {
@@ -412,6 +422,7 @@ std::vector<short> Gosc::dobierz_uslugi()
         {
             std::cout << "\033[" << 0 << ";" << 0 << "H";
             std::cout << "ESC - powrot do rezerwacji\n";
+            std::cout << "STRZALKI - przechodzenie po uslugach\n";
             std::cout << "ENTER - zaznacz/odznacz usluge\n\n";
             for (int i = start; i < stop; i++)
             {
@@ -467,12 +478,7 @@ std::vector<short> Gosc::dobierz_uslugi()
         case ESC:
         {
             system("cls");
-            for (int i = 0; i < wybrane.size(); i++)
-            {
-                if (wybrane[i])
-                    wyniki.push_back(i);
-            }
-            return wyniki;
+            return;
         }
         case ENTER:
         {
@@ -506,6 +512,7 @@ void Gosc::przegladaj_historie_rezerwacji()
         {
             std::cout << "\033[" << 0 << ";" << 0 << "H";
             std::cout << "ESC - powrot do menu\n";
+            std::cout << "STRZALKI - przechodzenie po rezerwacjach\n";
             std::cout << "ENTER - zobacz szczegoly rezerwacji\n\n";
             if (historia_rezerwacji.size() == 0)
             {
@@ -515,7 +522,7 @@ void Gosc::przegladaj_historie_rezerwacji()
             {
                 std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << "Rezerwacja: "
                     << Data::data_na_string(historia_rezerwacji[i].get_data_przyjazdu()) << " - " << Data::data_na_string(historia_rezerwacji[i].get_data_wymeldowania())
-                    << "\t" << "\x1b[0m          \n";
+                    << "\tStatus: " <<historia_rezerwacji[i].getStatusRezerwacji() << "\x1b[0m          \n";
             }
             rysuj = false;
         }
@@ -574,16 +581,22 @@ void Gosc::przegladaj_historie_rezerwacji()
             {
                 break;
             }
-            system("cls");
-            std::cout << "ESC - powrot do menu\n";
-            if(historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia")
-                std::cout << "ENTER - oplac\n";
-
-            historia_rezerwacji[wybor].pokaz_szczegoly();
-            //TODO: daæ mo¿liwoœæ op³acenia
+            bool rysuj2 = true;
             bool czekaj = true;
             while (czekaj)
             {
+                if (rysuj2)
+                {
+                    system("cls");
+                    std::cout << "ESC - powrot do menu\n";
+                    if (historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia")
+                        std::cout << "ENTER - oplac\n";
+                    if (Data::dzis() + 3 < historia_rezerwacji[wybor].get_data_przyjazdu() && historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia") {
+                        std::cout << "A - anuluj\n";
+                    }
+                    historia_rezerwacji[wybor].pokaz_szczegoly();
+                    rysuj2 = false;
+                }
                 switch (Ekran::klawisz())
                 {
                 case ESC:
@@ -593,13 +606,20 @@ void Gosc::przegladaj_historie_rezerwacji()
                 }
                 case ENTER:
                 {
-                    historia_rezerwacji[wybor].zaplac();
+                    if (historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia") {
+                        historia_rezerwacji[wybor].zaplac();
+                    }
+                    rysuj2 = true;
                     break;
                 }
                 case 'a':
                 case 'A':
                 {
-                    //TODO dodaæ mo¿liwoœæ anulowania
+                    if (Data::dzis() + 3 < historia_rezerwacji[wybor].get_data_przyjazdu() && historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia") {
+                        historia_rezerwacji[wybor].anuluj();
+                    }
+                    rysuj2 = true;
+                    break;
                 }
                 }
         
@@ -620,7 +640,7 @@ void Gosc::gui() {
     int a;
     historia_rezerwacji = Rezerwacja::odczytaj_rezerwacje(login);
     do {
-        std::cout << "1. Pokaz katalog pokoi i uslug.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
+        std::cout << "1. Pokaz katalog pokoi.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
         auto para = Wiadomosc::odczytaj_wiadomosci(this->login);
         this->wyslane_wiadomosci = para.first;
         this->odebrane_wiadomosci = para.second;

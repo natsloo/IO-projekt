@@ -13,19 +13,23 @@
 #include "Platnosc.h"
 #include "Wiadomosc.h"
 
-Platnosc::Platnosc(double kwota, std::string platnik, Data data)
+Platnosc::Platnosc(double kwota, std::string platnik, Data data, int id_rezerwacji)
 {
 	this->kwota = kwota;
 	this->platnik = platnik;
 	this->data = data;
+	this->id_rezerwacji = id_rezerwacji;
 	this->wygeneruj_fakture();
 }
 
 void Platnosc::wygeneruj_fakture() 
 {
 	std::vector<std::string> tresc;
-	tresc.push_back("TODO: dodaæ tresc");
-	tresc.push_back("kiedys sie to zrobi");
-	Wiadomosc("System", platnik, "Potwierdzenie platnosci", tresc, data, true);
+	tresc.push_back("FAKTURA\nza rezerwacje " + std::to_string(id_rezerwacji));
+	tresc.push_back("\nWystawiona dnia: " + Data::data_na_string(data) + ".\nPlatnik: " + platnik + "\t\t\tSprzedawca: Hotel\n");
+	tresc.push_back("Na kwote: " + std::to_string(kwota));
+	std::string user = "System";
+	std::string temat = "Potwierdzenie platnosci";
+	Wiadomosc(user, platnik, temat, tresc, data, true);
 }
 

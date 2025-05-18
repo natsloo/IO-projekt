@@ -83,7 +83,7 @@ void Uzytkownik::wyslij_wiadomosc()
 		}
 		tresc.push_back(linia);
 	}
-	Wiadomosc w(login, adresat, temat, tresc, Data::dzis(), true);
+	Wiadomosc w(login, adresat, temat, tresc, Data::dzis_timestamp(), true);
 }
 
 std::string spacja(int naj) {
@@ -121,6 +121,7 @@ void Uzytkownik::przegladaj_wyslane_wiadomosci()
 		{
 			std::cout << "\033[" << 0 << ";" << 0 << "H";
 			std::cout << "ESC - powrot do menu\n";
+			std::cout << "STRZALKI - przechodzenie po wiadomosciach\n";
 			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
 			if (wyslane_wiadomosci.size() == 0) 
 			{
@@ -237,6 +238,7 @@ void Uzytkownik::przegladaj_odebrane_wiadomosci() {
 		{
 			std::cout << "\033[" << 0 << ";" << 0 << "H";
 			std::cout << "ESC - powrot do menu\n";
+			std::cout << "STRZALKI - przechodzenie po wiadomosciach\n";
 			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
 			if (odebrane_wiadomosci.size() == 0) 
 			{
@@ -244,7 +246,7 @@ void Uzytkownik::przegladaj_odebrane_wiadomosci() {
 			}
 			for (int i = start; i < stop; i++)
 			{
-				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << odebrane_wiadomosci[i].getAdresat() << spacja(najad - odebrane_wiadomosci[i].getAdresat().length() + 4) << odebrane_wiadomosci[i].getTemat()
+				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << odebrane_wiadomosci[i].getNadawca() << spacja(najad - odebrane_wiadomosci[i].getAdresat().length() + 4) << odebrane_wiadomosci[i].getTemat()
 					<< spacja(najdluzszy - odebrane_wiadomosci[i].getTemat().length() + 4)
 					<< Data::data_na_string(odebrane_wiadomosci[i].getDataWyslania())
 					<< "\t" << "\x1b[0m          \n";
