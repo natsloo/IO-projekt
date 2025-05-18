@@ -370,7 +370,7 @@ void Gosc::zarezerwuj(Data data_przyjazdu, Data data_wymeldowania, int pokoj)
         }
         case ENTER:
         {
-            katalog->zarezerwuj(this->login, data_przyjazdu, data_wymeldowania, pokoj, uslugi);
+            historia_rezerwacji.push_back(katalog->zarezerwuj(this->login, data_przyjazdu, data_wymeldowania, pokoj, uslugi));
             return;
         }
         }
@@ -574,6 +574,7 @@ void Gosc::przegladaj_historie_rezerwacji()
             }
             system("cls");
             historia_rezerwacji[wybor].pokaz_szczegoly();
+            //TODO: daæ mo¿liwoœæ op³acenia
             system("pause");
             system("cls");
             rysuj = true;
@@ -590,11 +591,13 @@ void Gosc::gui() {
     system("cls");
     //system("clear");
     int a;
+    historia_rezerwacji = Rezerwacja::odczytaj_rezerwacje(login);
     do {
+        std::cout << "1. Pokaz katalog pokoi i uslug.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
         auto para = Wiadomosc::odczytaj_wiadomosci(this->login);
         this->wyslane_wiadomosci = para.first;
         this->odebrane_wiadomosci = para.second;
-        std::cout << "1. Pokaz katalog pokoi i uslug.\n2. Pokaz historie rezerwacji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
+        
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -604,7 +607,6 @@ void Gosc::gui() {
             przegladaj_katalog();
         }
         if (a == 2) {
-            historia_rezerwacji = Rezerwacja::odczytaj_rezerwacje(login);
             przegladaj_historie_rezerwacji();
         }
         if (a == 3) {

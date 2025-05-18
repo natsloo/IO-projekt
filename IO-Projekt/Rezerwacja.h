@@ -30,14 +30,14 @@ private:
 	std::string uzytkownik;
 	Data data_przyjazdu;
 	Data data_wymeldowania;
-	int status_rezerwacji;
+	std::string status_rezerwacji;
 	int liczba_osob;
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	std::shared_ptr<Pokoj> pokoj;
 	std::shared_ptr<Platnosc> platnosc;
 	void dopisz_do_pliku();
 public:
-	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa = false);
+	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, bool nowa = false);
 	~Rezerwacja() = default;
 	Platnosc zaplac();
 	void pokaz_szczegoly();

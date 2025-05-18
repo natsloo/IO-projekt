@@ -163,7 +163,7 @@ Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data
     {
         dus.push_back(this->uslugi[u]);
     }
-    Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, true);
+    Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, "do oplacenia", true);
     //TODO: dodaæ niedostepne daty do pokoju
 
 

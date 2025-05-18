@@ -14,14 +14,14 @@
 #include "Platnosc.h"
 #include "Katalog.h"
 
-//TODO: zmiana argumentow - Pokoj??
-Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, bool nowa)
+Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, bool nowa)
 {
 	this->uzytkownik = uzytkownik;
 	this->data_przyjazdu = data_przyjazdu;
 	this->data_wymeldowania = data_wymeldowania;
 	this->pokoj = pokoj;
-	this->dodatkowe_uslugi = dodatkowe_uslugi;  // do jsona wpisujesz vector nazw us³ug (podobnie jak vector linni w treœci wiadomoœci)
+	this->dodatkowe_uslugi = dodatkowe_uslugi;
+	this->status_rezerwacji = status_rezerwacji;
 
 	//std::cout << uzytkownik << " " << data_przyjazdu.string() << " " << data_wymeldowania.string() << " " << pokoj->getNumer() << " " << dodatkowe_uslugi.size();
 	//system("pause");
@@ -82,7 +82,7 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 				dus.emplace_back(a, 0, 0);
 			}
 
-			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus);
+			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus, "zamienic to na status rezerwacji");  //TODO
 			uzytkownik_rez.push_back(rez);
 		}
 	}
@@ -90,6 +90,11 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 }
 //TODO: dodaæ statyczn¹ metodê która przyjmie NUMER pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
 //TODO: w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
+
+//for (auto& w : wszystkie_rezerwacje)
+// if (w["pokoj"] == numer)
+//for (Data d = data_przyjazdu; d <= data_wymeldowania; d++)
+//dodaj d do vectora
 
 Platnosc Rezerwacja::zaplac() 
 {
@@ -125,3 +130,5 @@ Data Rezerwacja::get_data_przyjazdu() {
 Data Rezerwacja::get_data_wymeldowania() {
 	return data_wymeldowania;
 }
+
+//TODO: dodaæ getter i setter do statusu
