@@ -27,20 +27,44 @@ Data::Data(int d, int m, int r, int g, int mi, int s) {
 
 Data::Data(std::string data) {
     std::stringstream ss(data);
+    std::string line;
     std::string token;
-    std::getline(ss, token, '.');
+
+    std::getline(ss, line, ' ');
+    std::stringstream ssl(line);
+
+    std::getline(ssl, token, '.');
     int dzien = stoi(token);
 
-    std::getline(ss, token, '.');
+    std::getline(ssl, token, '.');
     int miesiac = stoi(token);
 
-    std::getline(ss, token, '.');
+    std::getline(ssl, token, '.');
     int rok = stoi(token);
 
     if (czy_poprawna_data(dzien, miesiac, rok)) {
         this->dzien = dzien;
         this->miesiac = miesiac;
         this->rok = rok;
+
+        if (std::getline(ss, line, ' ')) {
+            std::stringstream czas_ss(line);
+            std::string godzina_str, minuta_str, sekunda_str;
+
+            std::getline(czas_ss, godzina_str, ':');
+            std::getline(czas_ss, minuta_str, ':');
+            std::getline(czas_ss, sekunda_str, ':');
+
+            int godzina = stoi(godzina_str);
+            int minuta = stoi(minuta_str);
+            int sekunda = stoi(sekunda_str);
+
+            if (czy_poprawny_timestamp(dzien, miesiac, rok, godzina, minuta, sekunda)) {
+                this->godzina = godzina;
+                this->minuta = minuta;
+                this->sekunda = sekunda;
+            }
+        }
     }
 }
 
@@ -92,6 +116,29 @@ std::string Data::data_na_string(Data d) {
     std::string data;
     data = (d.dzien < 10 ? std::to_string(0) : "") + std::to_string(d.dzien) + '.' + (d.miesiac < 10 ? std::to_string(0) : "") + std::to_string(d.miesiac) + '.' + std::to_string(d.rok);
     return data;
+}
+
+std::string Data::data_na_string_timestamp(Data d) {
+    std::ostringstream oss;
+
+    if (d.dzien < 10) oss << '0';
+    oss << d.dzien << '.';
+
+    if (d.miesiac < 10) oss << '0';
+    oss << d.miesiac << '.';
+
+    oss << d.rok << ' ';
+
+    if (d.godzina < 10) oss << '0';
+    oss << d.godzina << ':';
+
+    if (d.minuta < 10) oss << '0';
+    oss << d.minuta << ':';
+
+    if (d.sekunda < 10) oss << '0';
+    oss << d.sekunda;
+
+    return oss.str();
 }
 
 std::string Data::dzis_timestamp() {
