@@ -1,11 +1,12 @@
 #include "Pokoj.h"
+#include "Rezerwacja.h"
 
 Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju) {
 	this->numer = numer;
 	this->maksymalna_liczba_osob = maksymalna_liczba_osob;
 	this->cena_za_noc = cena_za_noc;
 	this->standard_pokoju = standard_pokoju;
-
+	this->niedostepne_daty = Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(numer);
 	//TODO: dodaæ sprawdzenie niedostepnych dat na podstawie numeru
 }
 
@@ -42,4 +43,10 @@ std::string Pokoj::getStandardPokoju()
 std::vector<Data> Pokoj::getNiedostepneDaty()
 {
 	return niedostepne_daty;
+}
+
+void Pokoj::set_niedostepne(Data d1, Data d2) {
+	for (Data d = d1; d <= d2; d++) {
+		niedostepne_daty.push_back(d);
+	}
 }

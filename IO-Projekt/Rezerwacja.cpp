@@ -22,10 +22,7 @@ Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wy
 	this->pokoj = pokoj;
 	this->dodatkowe_uslugi = dodatkowe_uslugi;
 	this->status_rezerwacji = status_rezerwacji;
-
-	//std::cout << uzytkownik << " " << data_przyjazdu.string() << " " << data_wymeldowania.string() << " " << pokoj->getNumer() << " " << dodatkowe_uslugi.size();
-	//system("pause");
-	//if nowa, dopisz do pliku .json, do pliku wpisz numer pokoju czy coœ 
+ 
 	if (nowa) {
 		dopisz_do_pliku();
 	}
@@ -79,7 +76,7 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 			std::vector<DodatkowaUsluga> dus;  //TODO: rozwi¹zanie tymczasowe, dodaæ statyczn¹ metodê do katalogu i pobieraæ tak samo jak wskaŸnik na pokoje (ale tu nie wskaŸnik, tylko kopiowac obiekt)
 			for (auto& a : w["dodatkowe uslugi"])
 			{
-				dus.emplace_back(a, 0, 0);
+				dus.emplace_back(a, 0);
 			}
 
 			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus, "zamienic to na status rezerwacji");  //TODO
@@ -90,11 +87,26 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 }
 //TODO: dodaæ statyczn¹ metodê która przyjmie NUMER pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
 //TODO: w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
-
-//for (auto& w : wszystkie_rezerwacje)
-// if (w["pokoj"] == numer)
-//for (Data d = data_przyjazdu; d <= data_wymeldowania; d++)
-//dodaj d do vectora
+std::vector<Data> Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju) {
+	json wszystkie_rezerwacje = json::array();
+	std::ifstream plik_in("dane/rezerwacje.json");
+	if (plik_in.is_open()) {
+		plik_in >> wszystkie_rezerwacje;
+		if (!wszystkie_rezerwacje.is_array()) {
+			wszystkie_rezerwacje = json::array();
+		}
+		plik_in.close();
+	}
+	std::vector<Data> niedostepne_daty;
+	for (auto& w : wszystkie_rezerwacje) {
+		if (w["pokoj"] == numer_pokoju) {
+			for (Data d = Data(w["data przyjazdu"]); d <= Data(w["data wymeldowania"]); d++) {
+				niedostepne_daty.push_back(d);
+			}
+		}
+	}
+	return niedostepne_daty;
+}
 
 Platnosc Rezerwacja::zaplac() 
 {
@@ -106,9 +118,9 @@ void Rezerwacja::pokaz_szczegoly()
 	std::cout << "Rezerwacja na termin: " << Data::data_na_string(data_przyjazdu) << " - " << Data::data_na_string(data_wymeldowania) << "\n";
 	std::cout << "Pokoj nr: " << pokoj->getNumer() << "\n"; //TODO: wiecej info o pokoju?
 	std::cout << "Dodatkowe uslugi:" << "\n";
-	std::cout << "Ilosc:" << dodatkowe_uslugi.size() << "\n";
+	std::cout << "Ilosc: " << dodatkowe_uslugi.size() << "\n";
 	for (int i = 0; i < dodatkowe_uslugi.size(); i++) {
-		std::cout << i + 1 << ". " << dodatkowe_uslugi[i].opis() << "\n";
+		std::cout << "\t" << i + 1 << ". " << dodatkowe_uslugi[i].opis() << "\n";
 	}
 
 }

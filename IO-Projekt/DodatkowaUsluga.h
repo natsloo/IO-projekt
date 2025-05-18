@@ -22,11 +22,10 @@ private:
 	bool jednorazowe;
 public:
 	DodatkowaUsluga();
-	DodatkowaUsluga(std::string nazwa, double cena, bool jednorazowe);
+	DodatkowaUsluga(std::string nazwa, double cena);
 	~DodatkowaUsluga() = default;
 	std::string linia();
 	std::string opis();
-	bool get_jednorazowe();
 	double get_cena();
 	std::string get_nazwa();
 };

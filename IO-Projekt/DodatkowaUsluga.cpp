@@ -1,9 +1,8 @@
 #include "DodatkowaUsluga.h"
 
-DodatkowaUsluga::DodatkowaUsluga(std::string nazwa, double cena, bool jednorazowe) {
+DodatkowaUsluga::DodatkowaUsluga(std::string nazwa, double cena) {
 	this->nazwa = nazwa;
 	this->cena = cena;
-	this->jednorazowe = jednorazowe;
 }
 
 std::string DodatkowaUsluga::linia() {
@@ -14,10 +13,6 @@ std::string DodatkowaUsluga::linia() {
 std::string DodatkowaUsluga::opis() {
 	std::string linia = std::to_string(cena) + "    " + nazwa;
 	return linia;
-}
-
-bool DodatkowaUsluga::get_jednorazowe() {
-	return jednorazowe;
 }
 
 double DodatkowaUsluga::get_cena() {

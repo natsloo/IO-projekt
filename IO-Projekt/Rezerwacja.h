@@ -46,7 +46,7 @@ public:
 	Data get_data_przyjazdu();
 	Data get_data_wymeldowania();
 	static std::vector<Rezerwacja> odczytaj_rezerwacje(std::string nazwa_uzytkownika);
-
+	static std::vector<Data> odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju);
 };
 
 #endif  //_REZERWACJA_H

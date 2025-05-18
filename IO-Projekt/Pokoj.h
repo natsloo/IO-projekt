@@ -37,6 +37,7 @@ public:
 	double getCenaZaNoc();
 	std::string getStandardPokoju();
 	std::vector<Data> getNiedostepneDaty();
+	void set_niedostepne(Data d1, Data d2);
 };
 
 #endif  //_POKOJ_H

@@ -46,7 +46,7 @@ void Gosc::przegladaj_katalog()
         if (rysuj)
         {
             std::cout << "\033[" << 0 << ";" << 0 << "H";
-            std::cout << "ESC - wyjscie z katlogu\n";
+            std::cout << "ESC - wyjscie z katalogu\n";
             std::cout << "F - wybierz filtry\n";
             std::cout << "ENTER - wybierz pokoj do rezerwacji\n\n";
             std::cout << "Wyswietlam wyniki dla planowanej daty pobytu: " << data_przyjazdu->string() << " - " << data_wymeldowania->string() << "\n\n";
@@ -118,6 +118,8 @@ void Gosc::przegladaj_katalog()
             }
             zarezerwuj(*data_przyjazdu, *data_wymeldowania, indeksy[wybor]); 
             rysuj = true;
+            system("cls");
+            indeksy = zastosuj_filtry(*data_przyjazdu, *data_wymeldowania, 0, 1000, 1, "all");
             break;
         }
         case 'f':
@@ -163,7 +165,7 @@ std::vector<short> Gosc::filtruj(std::shared_ptr<Data> data_przyjazdu, std::shar
 
     int min_cena_noc = 0;
     int max_cena_noc = 1000;
-    std::vector<std::string> standard = { "family", "basic", "komfort", "apartament", "deluxe", "all"};
+    std::vector<std::string> standard = { "all", "family", "basic", "komfort", "apartament", "deluxe" };
     bool rysuj = true;
     int wybor = 0, wybor_standard=0;
     while (true)
@@ -589,7 +591,6 @@ void Gosc::przegladaj_historie_rezerwacji()
 void Gosc::gui() {
     
     system("cls");
-    //system("clear");
     int a;
     historia_rezerwacji = Rezerwacja::odczytaj_rezerwacje(login);
     do {

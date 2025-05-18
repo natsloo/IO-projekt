@@ -30,10 +30,7 @@ DodatkowaUsluga parse_csv_uslugi(std::string& linia) {
     std::getline(ss, token, ',');
     int cena = stoi(token);
 
-    std::getline(ss, token, ',');
-    bool jednorazowe = stoi(token);
-
-    return DodatkowaUsluga(nazwa, cena, jednorazowe);
+    return DodatkowaUsluga(nazwa, cena);
 }
 
 std::shared_ptr<Pokoj> parse_csv_pokoj(std::string& linia) {
@@ -165,6 +162,7 @@ Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data
     }
     Rezerwacja r(uzytkownik, data_przyjazdu, data_wymeldowania, pokoje[pokoj], dus, "do oplacenia", true);
     //TODO: dodaæ niedostepne daty do pokoju
+    pokoje[pokoj]->set_niedostepne(data_przyjazdu, data_wymeldowania);
 
 
 	return r;
