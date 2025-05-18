@@ -20,6 +20,19 @@ Katalog::Katalog()
     wczytaj_uslugi();
 }
 
+std::shared_ptr<Katalog> Katalog::pobierzInstancje() {
+    static std::shared_ptr<Katalog> instancja(new Katalog());
+    return instancja;
+}
+
+std::shared_ptr<KatalogDlaGosci> KatalogDlaGosci::pobierzInstancjeGosc() {
+    return Katalog::pobierzInstancje();
+}
+
+std::shared_ptr<KatalogDlaPracownikow> KatalogDlaPracownikow::pobierzInstancjePracownik() {
+    return Katalog::pobierzInstancje();
+}
+
 DodatkowaUsluga parse_csv_uslugi(std::string& linia) {
     std::stringstream ss(linia);
     std::string token;
@@ -73,6 +86,10 @@ void Katalog::wczytaj_uslugi() {
 }
 
 void Katalog::zapisz_pokoje() {
+    std::sort(pokoje.begin(), pokoje.end(),
+        [](const std::shared_ptr<Pokoj>& a, const std::shared_ptr<Pokoj>& b) {
+            return a->getNumer() < b->getNumer();
+        });
     std::ofstream p("dane/pokoje.csv", std::ios::out);
     std::string linia;
     for (auto& pokoj : pokoje) {
@@ -88,15 +105,6 @@ void Katalog::zapisz_uslugi() {
         linia = usluga.linia();
         p << linia << "\n";
     }
-}
-
-std::shared_ptr<Katalog> Katalog::pobierzInstancje() {
-    static std::shared_ptr<Katalog> instancja(new Katalog());
-    return instancja;
-}
-
-std::shared_ptr<KatalogDlaGosci> KatalogDlaGosci::pobierzInstancjeGosc() {
-    return Katalog::pobierzInstancje();
 }
 
 std::vector<short> Katalog::filtruj_wg_daty(Data data)
@@ -168,34 +176,84 @@ Rezerwacja Katalog::zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data
 	return r;
 }
 
-void Katalog::dodaj_pokoj() 
+void Katalog::dodaj_pokoj(std::shared_ptr<Pokoj> p) 
 {
+    int numer = p->getNumer();
 
+    for (auto& pokoj : pokoje) {
+        if (pokoj->getNumer() == numer) {
+            return;
+        }
+    }
+
+    pokoje.push_back(p);
     zapisz_pokoje();
 }
 
-void Katalog::edytuj_pokoj() 
+std::shared_ptr<Pokoj> Katalog::get_pokoj(int indeks)
 {
+    if (indeks >= 0 && indeks < pokoje.size())
+    {
+        return pokoje[indeks];
+    }
+}
+
+void Katalog::edytuj_pokoj(int indeks, std::shared_ptr<Pokoj> nowy)
+{
+    if (indeks >= 0 && indeks < pokoje.size())
+    {
+        pokoje[indeks] = nowy;
+        zapisz_pokoje();
+    }
+}
+    
+
+void Katalog::usun_pokoj(int indeks)
+{
+    if (indeks >= 0 && indeks < pokoje.size())
+    {
+        pokoje.erase(pokoje.begin() + indeks);
+    }
     zapisz_pokoje();
 }
 
-void Katalog::usun_pokoj() 
+void Katalog::dodaj_usluge(DodatkowaUsluga u)
 {
-    zapisz_pokoje();
-}
+    std::string nazwa = u.get_nazwa();
 
-void Katalog::dodaj_usluge() 
-{
+    for (auto& usluga : uslugi) {
+        if (usluga.get_nazwa() == nazwa) {
+            return;
+        }
+    }
+
+    uslugi.push_back(u);
     zapisz_uslugi();
 }
 
-void Katalog::edytuj_usluge() 
+DodatkowaUsluga Katalog::get_usluga(int indeks)
 {
-    zapisz_uslugi();
+    if (indeks >= 0 && indeks < uslugi.size())
+    {
+        return uslugi[indeks];
+    }
 }
 
-void Katalog::usun_usluge() 
+void Katalog::edytuj_usluge(int indeks, DodatkowaUsluga u)
 {
+    if (indeks >= 0 && indeks < uslugi.size())
+    {
+        uslugi[indeks] = u;
+        zapisz_uslugi();
+    }
+}
+
+void Katalog::usun_usluge(int indeks)
+{
+    if (indeks >= 0 && indeks < uslugi.size())
+    {
+        uslugi.erase(uslugi.begin() + indeks);
+    }
     zapisz_uslugi();
 }
 
@@ -244,7 +302,7 @@ std::vector<std::shared_ptr<Pokoj>> Katalog::get_vector_pokoi()
     return pokoje;
 }
 
-std::shared_ptr<Pokoj> Katalog::get_pokoj(int numer)
+std::shared_ptr<Pokoj> Katalog::get_pokoj_(int numer)
 {
     auto k = Katalog::pobierzInstancje();
     for (auto& p : k->get_vector_pokoi())

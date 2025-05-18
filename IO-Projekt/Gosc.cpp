@@ -26,8 +26,6 @@ Gosc::Gosc() {
     this->katalog = KatalogDlaGosci::pobierzInstancjeGosc();
 }
 
-std::string spacje(int naj);
-
 void Gosc::przegladaj_katalog() 
 {
     system("cls");
@@ -137,24 +135,6 @@ void Gosc::przegladaj_katalog()
             break;
         }
     }
-}
-
-std::vector<short> polacz_wyniki_filtrow(std::vector<short> v1, std::vector<short> v2)
-{
-    std::vector<short> wynik;
-
-    for (const auto& p1 : v1)
-    {
-        for (const auto& p2 : v2)
-        {
-            if (p1 == p2)
-            {
-                wynik.push_back(p1);
-                break;
-            }
-        }
-    }
-    return wynik;
 }
 
 std::vector<short> Gosc::filtruj(std::shared_ptr<Data> data_przyjazdu, std::shared_ptr<Data> data_wymeldowania) 
@@ -380,14 +360,6 @@ void Gosc::zarezerwuj(Data data_przyjazdu, Data data_wymeldowania, int pokoj)
     
 }
 
-std::string spacje(int naj) {
-    std::string s = "";
-    for (int i = 0; i < naj; i++) {
-        s += " ";
-    }
-    return s;
-}
-
 std::vector<short> Gosc::dobierz_uslugi()
 {
     std::vector<short> wyniki;
@@ -415,7 +387,7 @@ std::vector<short> Gosc::dobierz_uslugi()
             std::cout << "ENTER - zaznacz/odznacz usluge\n\n";
             for (int i = start; i < stop; i++)
             {
-                std::cout << i << ". " << (wybrane[i] ? "\t[\033[32mX\033[0m]  " : "\t[ ]  ") << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis_uslugi(i) <<spacje(najdluzszy - katalog->get_opis_uslugi(i).length() + 4) <<"\x1b[0m                              \n";
+                std::cout << i << ". " << (wybrane[i] ? "\t[\033[32mX\033[0m]  " : "\t[ ]  ") << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << katalog->get_opis_uslugi(i) <<Ekran::spacje(najdluzszy - katalog->get_opis_uslugi(i).length() + 4) <<"\x1b[0m                              \n";
             }
             rysuj = false;
             //std::cout << start << " " << wybor << " " << stop <<" "<< indeksy.size()<< "        \n";

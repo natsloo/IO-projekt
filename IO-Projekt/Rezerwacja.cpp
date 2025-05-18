@@ -84,7 +84,7 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 				dus.emplace_back(a, 0);
 			}
 
-			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus, "zamienic to na status rezerwacji", 2137, false, 420);  //TODO  2137 zamieniæ na cene, a 420 zamieniæ na id odczytane  zpliku
+			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj_(w["pokoj"]), dus, "zamienic to na status rezerwacji", 2137, false, 420);  //TODO  2137 zamieniæ na cene, a 420 zamieniæ na id odczytane  zpliku
 			uzytkownik_rez.push_back(rez);
 		}
 	}

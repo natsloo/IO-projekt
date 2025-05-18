@@ -29,6 +29,7 @@ protected:
 	std::string haslo;
 	std::vector<Wiadomosc> wyslane_wiadomosci;
 	std::vector<Wiadomosc> odebrane_wiadomosci;
+	std::vector<short> polacz_wyniki_filtrow(std::vector<short> v1, std::vector<short> v2);
 public:
 	Uzytkownik();
 	~Uzytkownik() = default;

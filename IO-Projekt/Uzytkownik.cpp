@@ -441,3 +441,20 @@ void Uzytkownik::zarejestruj(std::string plik)
 	std::cout << "Poprawnie utworzono konto.\nZaloguj sie, by miec dostep do systemu.\n";
 }
 
+std::vector<short> Uzytkownik::polacz_wyniki_filtrow(std::vector<short> v1, std::vector<short> v2)
+{
+	std::vector<short> wynik;
+
+	for (const auto& p1 : v1)
+	{
+		for (const auto& p2 : v2)
+		{
+			if (p1 == p2)
+			{
+				wynik.push_back(p1);
+				break;
+			}
+		}
+	}
+	return wynik;
+}

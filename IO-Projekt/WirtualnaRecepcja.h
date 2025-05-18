@@ -18,10 +18,16 @@
 
 class WirtualnaRecepcja {
 private:
+	WirtualnaRecepcja();
+	WirtualnaRecepcja(const WirtualnaRecepcja&) = delete;
+	WirtualnaRecepcja& operator=(const WirtualnaRecepcja&) = delete;
+
 	std::vector<Rezerwacja> aktualni_goscie;
-	std::vector<Pokoj> pokoje;
+	std::vector<std::shared_ptr<Pokoj>> pokoje;
 	void zamelduj(Rezerwacja rezerwacja);
 	void wymelduj();
+public:
+	static std::shared_ptr<WirtualnaRecepcja> pobierzInstancje();
 };
 
 #endif  //_WIRTUALNARECEPCJA_H

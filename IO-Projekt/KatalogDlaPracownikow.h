@@ -17,17 +17,30 @@
 
 class KatalogDlaPracownikow {
 public:
-	virtual void dodaj_pokoj() = 0;
-	virtual void edytuj_pokoj() = 0;
-	virtual void usun_pokoj() = 0;
+	static std::shared_ptr<KatalogDlaPracownikow> pobierzInstancjePracownik();
+
+	virtual void dodaj_pokoj(std::shared_ptr<Pokoj> p) = 0;
+	virtual std::shared_ptr<Pokoj> get_pokoj(int indeks) = 0;
+	virtual void edytuj_pokoj(int indeks, std::shared_ptr<Pokoj> nowy) = 0;
+	virtual void usun_pokoj(int indeks) = 0;
 	virtual std::vector<short> filtruj_wg_daty(Data data) = 0;
 	virtual std::vector<short> filtruj_wg_ceny(double min, double max) = 0;
 	virtual std::vector<short> filtruj_wg_ilosci_osob(int ilosc) = 0;
 	virtual std::vector<short> filtruj_wg_standardu(std::string standard) = 0;
-	virtual void dodaj_usluge() = 0;
-	virtual void edytuj_usluge() = 0;
-	virtual void usun_usluge() = 0;
+	virtual void dodaj_usluge(DodatkowaUsluga u) = 0;
+	virtual DodatkowaUsluga get_usluga(int indeks) = 0;
+	virtual void edytuj_usluge(int indeks, DodatkowaUsluga u) = 0;
+	virtual void usun_usluge(int indeks) = 0;
 	virtual ~KatalogDlaPracownikow() = default;
+
+	virtual int get_ilosc_pokoi() = 0;
+	virtual std::string get_opis(int indeks) = 0;
+	virtual int get_ilosc_uslug() = 0;
+	virtual std::string get_opis_uslugi(int indeks) = 0;
+
+	virtual int get_numer(int indeks) = 0;
+	virtual double get_cena(int indeks) = 0;
+	virtual double get_cena_uslugi(int indeks) = 0;
 };
 
 #endif  //_KATALOGDLAPRACOWNIKOW_H

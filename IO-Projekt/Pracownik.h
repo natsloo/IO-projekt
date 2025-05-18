@@ -15,16 +15,28 @@
 
 #include <memory>
 #include <stdlib.h>
+#include <algorithm>
+#include "Ekran.h"
 #include "WirtualnaRecepcja.h"
 #include "Uzytkownik.h"
-#include "Katalog.h"
 #include "KatalogDlaPracownikow.h"
 
 class Pracownik : public Uzytkownik {
 private:
 	std::shared_ptr<WirtualnaRecepcja> recepcja;
-	void aktualizuj_katalog();
+	std::shared_ptr<KatalogDlaPracownikow> katalog;
 	void przegladaj_katalog();
+	void przegladaj_pokoje();
+	void przegladaj_uslugi();
+
+	std::shared_ptr<Pokoj> dodaj_pokoj(int n = 101, int lo = 1, int cn = 100, std::string s = "family");
+	std::shared_ptr<Pokoj> edytuj_pokoj(int indeks);
+
+	DodatkowaUsluga dodaj_usluge(std::string n = "", double c = 0);
+	DodatkowaUsluga edytuj_usluge(int indeks);
+
+	std::vector<short> filtruj(std::shared_ptr<Data> data_przyjazdu, std::shared_ptr<Data> data_wymeldowania);
+	std::vector<short> zastosuj_filtry(Data data_przyjazdu, Data data_wymeldowania, int min_cena_noc, int max_cena_noc, int min_liczba_osob, std::string standard);
 public:
 	Pracownik();
 	~Pracownik() = default;

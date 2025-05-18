@@ -11,7 +11,13 @@
 
 
 #include "WirtualnaRecepcja.h"
-#include "Rezerwacja.h"
+
+WirtualnaRecepcja::WirtualnaRecepcja() {}
+
+std::shared_ptr<WirtualnaRecepcja> WirtualnaRecepcja::pobierzInstancje() {
+    static std::shared_ptr<WirtualnaRecepcja> instancja(new WirtualnaRecepcja());
+    return instancja;
+}
 
 void WirtualnaRecepcja::zamelduj(Rezerwacja rezerwacja) 
 {

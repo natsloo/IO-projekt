@@ -50,12 +50,14 @@ public:
 	std::vector<short> filtruj_wg_ilosci_osob(int ilosc) override;
 	std::vector<short> filtruj_wg_standardu(std::string standard) override;
 	Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi) override;
-	void dodaj_pokoj() override;
-	void edytuj_pokoj() override;
-	void usun_pokoj() override;
-	void dodaj_usluge() override;
-	void edytuj_usluge() override;
-	void usun_usluge() override;
+	void dodaj_pokoj(std::shared_ptr<Pokoj> p) override;
+	std::shared_ptr<Pokoj> get_pokoj(int indeks) override;
+	void edytuj_pokoj(int indeks, std::shared_ptr<Pokoj> nowy) override;
+	void usun_pokoj(int indeks) override;
+	void dodaj_usluge(DodatkowaUsluga u) override;
+	DodatkowaUsluga get_usluga(int indeks) override;
+	void edytuj_usluge(int indeks, DodatkowaUsluga u) override;
+	void usun_usluge(int indeks) override;
 
 	int get_ilosc_pokoi() override;
 	std::string get_opis(int indeks) override;
@@ -67,7 +69,7 @@ public:
 
 
 	std::vector<std::shared_ptr<Pokoj>> get_vector_pokoi();
-	static std::shared_ptr<Pokoj> get_pokoj(int numer);
+	static std::shared_ptr<Pokoj> get_pokoj_(int numer);
 };
 
 #endif  //_KATALOG_H
