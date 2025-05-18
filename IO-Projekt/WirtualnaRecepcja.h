@@ -14,7 +14,9 @@
 #define _WIRTUALNARECEPCJA_H
 
 #include <vector>
+#include "Ekran.h"
 #include "Rezerwacja.h"
+#include "Katalog.h"
 
 class WirtualnaRecepcja {
 private:
@@ -22,12 +24,18 @@ private:
 	WirtualnaRecepcja(const WirtualnaRecepcja&) = delete;
 	WirtualnaRecepcja& operator=(const WirtualnaRecepcja&) = delete;
 
-	std::vector<Rezerwacja> aktualni_goscie;
+	std::vector<Rezerwacja> wszystkie_rezerwacje;
 	std::vector<std::shared_ptr<Pokoj>> pokoje;
-	void zamelduj(Rezerwacja rezerwacja);
-	void wymelduj();
+
+	void rezerwacje(std::vector<short> indeksy, int tryb = 0);
+
+
 public:
 	static std::shared_ptr<WirtualnaRecepcja> pobierzInstancje();
+	void zamelduj();
+	void wymelduj();
+	void przegladaj_pokoje();
+	void przegladaj_rezerwacje();
 };
 
 #endif  //_WIRTUALNARECEPCJA_H

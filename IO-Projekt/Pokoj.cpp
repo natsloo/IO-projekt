@@ -1,7 +1,7 @@
 #include "Pokoj.h"
 #include "Rezerwacja.h"
 
-Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju) {
+Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju, std::string status) {
 	this->numer = numer;
 	this->maksymalna_liczba_osob = maksymalna_liczba_osob;
 	this->cena_za_noc = cena_za_noc;
@@ -10,7 +10,7 @@ Pokoj::Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::str
 }
 
 std::string Pokoj::linia() {
-	std::string linia = std::to_string(numer) + ',' + std::to_string(maksymalna_liczba_osob) + ',' + std::to_string(cena_za_noc) + ',' + standard_pokoju;
+	std::string linia = std::to_string(numer) + ',' + std::to_string(maksymalna_liczba_osob) + ',' + std::to_string(cena_za_noc) + ',' + standard_pokoju + ',' + aktualny_status;
 	return linia;
 }
 
@@ -52,4 +52,14 @@ void Pokoj::set_niedostepne(Data d1, Data d2) {
 
 void Pokoj::przeladuj_pokoj() {
 	this->niedostepne_daty = Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(numer);
+}
+
+std::string Pokoj::get_status()
+{
+	return aktualny_status;
+}
+
+void Pokoj::set_status(std::string s)
+{
+	aktualny_status = s;
 }

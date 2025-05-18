@@ -207,7 +207,7 @@ std::vector<short> Gosc::filtruj(std::shared_ptr<Data> data_przyjazdu, std::shar
                 }
                 case 1:
                 {
-                    if (*data_przyjazdu > Data::dzis() + 1)
+                    if (*data_przyjazdu > Data::dzis())
                     {
                         (*data_przyjazdu)--;
                     }

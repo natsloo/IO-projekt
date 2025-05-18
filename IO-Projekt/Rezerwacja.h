@@ -49,11 +49,14 @@ public:
 	Data get_data_przyjazdu();
 	Data get_data_wymeldowania();
 	static std::vector<Rezerwacja> odczytaj_rezerwacje(std::string nazwa_uzytkownika);
+	static std::vector<Rezerwacja> odczytaj_wszystkie_rezerwacje();
 	static std::vector<Data> odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju);
 
 	std::string getStatusRezerwacji();
 	void setStatusRezerwacji(std::string status);
 	int get_id();
+	std::string get_gosc();
+	std::shared_ptr<Pokoj> get_pokoj();
 };
 
 #endif  //_REZERWACJA_H

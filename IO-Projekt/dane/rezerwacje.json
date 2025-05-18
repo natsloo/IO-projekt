@@ -145,5 +145,130 @@
         "nazwa uzytkownika": "natalia",
         "pokoj": 150,
         "status": "anulowana"
+    },
+    {
+        "cena": 500.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [
+            [
+                "wejscia na basen i plaze hotelowa",
+                55.0
+            ],
+            [
+                "wizyta w hotelowym spa",
+                50.0
+            ],
+            [
+                "sniadania",
+                50.0
+            ],
+            [
+                "obiady",
+                90.0
+            ],
+            [
+                "kolacje",
+                50.0
+            ],
+            [
+                "room service",
+                25.0
+            ]
+        ],
+        "id": 9,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 104,
+        "status": "do oplacenia"
+    },
+    {
+        "cena": 600.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 10,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 105,
+        "status": "do oplacenia"
+    },
+    {
+        "cena": 220.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 11,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 108,
+        "status": "do oplacenia"
+    },
+    {
+        "cena": 470.0,
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 12,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 113,
+        "status": "oplacona"
+    },
+    {
+        "cena": 360.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 13,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 117,
+        "status": "do oplacenia"
+    },
+    {
+        "cena": 260.0,
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 14,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 121,
+        "status": "oplacona"
+    },
+    {
+        "cena": 145.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 15,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 122,
+        "status": "do oplacenia"
+    },
+    {
+        "cena": 600.0,
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 16,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 132,
+        "status": "oplacona"
+    },
+    {
+        "cena": 360.0,
+        "data przyjazdu": "18.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 17,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 131,
+        "status": "oplacona"
+    },
+    {
+        "cena": 285.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [],
+        "id": 18,
+        "nazwa uzytkownika": "lukas1x",
+        "pokoj": 133,
+        "status": "do oplacenia"
     }
 ]

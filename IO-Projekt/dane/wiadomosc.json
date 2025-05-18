@@ -42,5 +42,60 @@
             "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
             "Na kwote: 675.000000"
         ]
+    },
+    {
+        "adresat": "natalia",
+        "data": "18.05.2025 20:05:44",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 7",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 680.000000"
+        ]
+    },
+    {
+        "adresat": "lukas1x",
+        "data": "18.05.2025 23:23:32",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 12",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: lukas1x\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 470.000000"
+        ]
+    },
+    {
+        "adresat": "lukas1x",
+        "data": "18.05.2025 23:23:39",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 14",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: lukas1x\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 260.000000"
+        ]
+    },
+    {
+        "adresat": "lukas1x",
+        "data": "18.05.2025 23:23:41",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 16",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: lukas1x\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 600.000000"
+        ]
+    },
+    {
+        "adresat": "lukas1x",
+        "data": "18.05.2025 23:23:43",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 17",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: lukas1x\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 360.000000"
+        ]
     }
 ]

@@ -109,6 +109,29 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 	return uzytkownik_rez;
 }
 
+std::vector<Rezerwacja> Rezerwacja::odczytaj_wszystkie_rezerwacje() {
+	json wszystkie_rezerwacje = json::array();
+	std::ifstream plik_in("dane/rezerwacje.json");
+	if (plik_in.is_open()) {
+		plik_in >> wszystkie_rezerwacje;
+		if (!wszystkie_rezerwacje.is_array()) {
+			wszystkie_rezerwacje = json::array();
+		}
+		plik_in.close();
+	}
+	std::vector<Rezerwacja> rez;
+	for (auto& w : wszystkie_rezerwacje) {
+		std::vector<DodatkowaUsluga> dus;
+		for (auto& a : w["dodatkowe uslugi"])
+		{
+			dus.emplace_back(a[0], a[1]);
+		}
+		Rezerwacja r(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj_(w["pokoj"]), dus, w["status"], w["cena"], false, w["id"]);
+		rez.push_back(r);
+	}
+	return rez;
+}
+
 std::vector<Data> Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju) {
 	json wszystkie_rezerwacje = json::array();
 	std::ifstream plik_in("dane/rezerwacje.json");
@@ -202,4 +225,14 @@ void Rezerwacja::setStatusRezerwacji(std::string status) {
 
 int Rezerwacja::get_id() {
 	return id;
+}
+
+std::string Rezerwacja::get_gosc()
+{
+	return this->uzytkownik;
+}
+
+std::shared_ptr<Pokoj> Rezerwacja::get_pokoj()
+{
+	return pokoj;
 }

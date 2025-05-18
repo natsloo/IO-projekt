@@ -21,13 +21,12 @@ class Pokoj {
 private:
 	int numer;
 	int maksymalna_liczba_osob;
-	int aktualny_status;
+	std::string aktualny_status = "wolny";
 	std::vector<Data> niedostepne_daty;
 	double cena_za_noc;
 	std::string standard_pokoju;
 public:
-	Pokoj();
-	Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju);
+	Pokoj(int numer, int maksymalna_liczba_osob, double cena_za_noc, std::string standard_pokoju, std::string status = "wolny");
 	~Pokoj() = default;
 	std::string linia();
 	std::string opis();
@@ -39,6 +38,8 @@ public:
 	std::vector<Data> getNiedostepneDaty();
 	void set_niedostepne(Data d1, Data d2);
 	void przeladuj_pokoj();
+	std::string get_status();
+	void set_status(std::string s);
 };
 
 #endif  //_POKOJ_H

@@ -38,7 +38,6 @@ private:
 	Katalog& operator=(const Katalog&) = delete;
 	void wczytaj_pokoje();
 	void wczytaj_uslugi();
-	void zapisz_pokoje();
 	void zapisz_uslugi();
 
 public:
@@ -71,6 +70,8 @@ public:
 	std::vector<std::shared_ptr<Pokoj>> get_vector_pokoi();
 	static std::shared_ptr<Pokoj> get_pokoj_(int numer);
 	static void przeladuj_pokoje();
+
+	void zapisz_pokoje();
 };
 
 #endif  //_KATALOG_H

@@ -9,6 +9,14 @@
 //
 //
 
+#define STRZALKI -32
+#define GORA 72
+#define DOL 80
+#define LEWO 75
+#define PRAWO 77
+#define ESC 27
+#define ENTER 13
+#define BACKSPACE 8
 
 #include "WirtualnaRecepcja.h"
 
@@ -16,16 +24,274 @@ WirtualnaRecepcja::WirtualnaRecepcja() {}
 
 std::shared_ptr<WirtualnaRecepcja> WirtualnaRecepcja::pobierzInstancje() {
     static std::shared_ptr<WirtualnaRecepcja> instancja(new WirtualnaRecepcja());
+    instancja->wszystkie_rezerwacje = Rezerwacja::odczytaj_wszystkie_rezerwacje();
+    instancja->pokoje = Katalog::pobierzInstancje()->get_vector_pokoi();
     return instancja;
 }
 
-void WirtualnaRecepcja::zamelduj(Rezerwacja rezerwacja) 
+void WirtualnaRecepcja::rezerwacje(std::vector<short> indeksy, int tryb)
 {
+    system("cls"); 
+    bool rysuj = true;
+    int wybor = 0;
+    int start = 0;
+    int ilosc = 10;
+    int stop = min(start + ilosc, indeksy.size());
 
+    while (true)
+    {
+        if (rysuj)
+        {
+            std::cout << "\033[" << 0 << ";" << 0 << "H";
+            std::cout << "ESC - powrot do menu\n";
+            std::cout << "STRZALKI - przechodzenie po rezerwacjach\n";
+            std::cout << "ENTER - zobacz szczegoly rezerwacji\n\n";
+            if (indeksy.size() == 0)
+            {
+                std::cout << "Brak wynikow :(\n";
+            }
+            for (int i = start; i < stop; i++)
+            {
+                std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << "Rezerwacja: "
+                    << Data::data_na_string(wszystkie_rezerwacje[indeksy[i]].get_data_przyjazdu()) << " - " << Data::data_na_string(wszystkie_rezerwacje[indeksy[i]].get_data_wymeldowania())
+                    << "    Status: " << wszystkie_rezerwacje[indeksy[i]].getStatusRezerwacji() << "    Gosc:" << wszystkie_rezerwacje[indeksy[i]].get_gosc() << "\x1b[0m          \n";
+            }
+            rysuj = false;
+        }
+        switch (Ekran::klawisz())
+        {
+        case STRZALKI:
+        {
+            rysuj = true;
+            switch (Ekran::klawisz())
+            {
+            case GORA:
+            {
+                if (wybor)
+                {
+                    wybor--;
+                    if (wybor - start < 1)
+                    {
+                        if (start > 0)
+                        {
+                            start--;
+                            stop--;
+                        }
+                    }
+                }
+                break;
+            }
+            case DOL:
+            {
+                if (wybor < indeksy.size() - 1)
+                {
+                    wybor++;
+                    if (stop - wybor < 2)
+                    {
+                        if (stop < indeksy.size())
+                        {
+                            start++;
+                            stop++;
+                        }
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+            }
+            break;
+        }
+        case ESC:
+        {
+            system("cls");
+            return;
+        }
+        case ENTER:
+        {
+            if (indeksy.size() == 0)
+            {
+                break;
+            }
+            bool rysuj2 = true;
+            bool czekaj = true;
+            while (czekaj)
+            {
+                if (rysuj2)
+                {
+                    system("cls");
+                    std::cout << "ESC - powrot do menu\n";
+                    if (tryb == 1 && wszystkie_rezerwacje[indeksy[wybor]].getStatusRezerwacji() != "w trakcie");
+                        std::cout << "ENTER - zamelduj\n";
+                    if (tryb == 2 && wszystkie_rezerwacje[indeksy[wybor]].getStatusRezerwacji() != "zakonczona")
+                        std::cout << "ENTER - wymelduj\n";
+                    std::cout << "\n\n";
+                    wszystkie_rezerwacje[indeksy[wybor]].pokaz_szczegoly();
+                    rysuj2 = false;
+                }
+                switch (Ekran::klawisz())
+                {
+                case ESC:
+                {
+                    system("cls");
+                    czekaj = false;
+                    break;
+                }
+                case ENTER:
+                {
+                    rysuj2 = true;
+                    if (tryb == 1)
+                    {
+                        wszystkie_rezerwacje[indeksy[wybor]].setStatusRezerwacji("w trakcie");
+                        wszystkie_rezerwacje[indeksy[wybor]].get_pokoj()->set_status("zajety");
+                    }
+                    else if (tryb == 2)
+                    {
+                        wszystkie_rezerwacje[indeksy[wybor]].setStatusRezerwacji("zakonczona");
+                        wszystkie_rezerwacje[indeksy[wybor]].get_pokoj()->set_status("do sprzatania");
+                    }
+                    
+                    break;
+                }
+
+                }
+                rysuj = true;
+            }
+        }
+        default:
+            break;
+
+        }
+    }
+}
+
+void WirtualnaRecepcja::zamelduj() 
+{
+    std::vector<short> v;
+    for (short i = 0; i < wszystkie_rezerwacje.size(); i++) {
+        if (wszystkie_rezerwacje[i].getStatusRezerwacji() == "oplacona" && Data::dzis() <= wszystkie_rezerwacje[i].get_data_przyjazdu())
+            v.push_back(i);
+    }
+    rezerwacje(v, 1);
+    Katalog::pobierzInstancje()->zapisz_pokoje();
 }
 
 void WirtualnaRecepcja::wymelduj() 
 {
+    std::vector<short> v;
+    for (short i = 0; i < wszystkie_rezerwacje.size(); i++) {
+        if (wszystkie_rezerwacje[i].getStatusRezerwacji() == "w trakcie")
+            v.push_back(i);
+    }
+    rezerwacje(v, 2);
+    Katalog::pobierzInstancje()->zapisz_pokoje();
+}
 
+void WirtualnaRecepcja::przegladaj_rezerwacje()
+{
+    std::vector<short> v;
+    for (short j = 0; j < wszystkie_rezerwacje.size(); j++) {
+        v.push_back(j);
+    }
+    rezerwacje(v);
+}
+
+void WirtualnaRecepcja::przegladaj_pokoje()
+{
+    system("cls");
+    bool rysuj = true;
+    int wybor = 0;
+    int start = 0;
+    int ilosc = 10;
+    int stop = min(start + ilosc, pokoje.size());
+
+    while (true)
+    {
+        if (rysuj)
+        {
+            std::cout << "\033[" << 0 << ";" << 0 << "H";
+            std::cout << "ESC - powrot do menu\n";
+            std::cout << "STRZALKI - przechodzenie po pokojach\n";
+            std::cout << "ENTER - oznacz pokoj jako posprzatany\n\n";
+            if (pokoje.size() == 0)
+            {
+                std::cout << "Brak wynikow :(\n";
+            }
+            for (int i = start; i < stop; i++)
+            {
+                std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << "Pokoj: "
+                    << pokoje[i]->getNumer() << "    Status: " << pokoje[i]->get_status() << "\x1b[0m          \n";
+            }
+            rysuj = false;
+        }
+        switch (Ekran::klawisz())
+        {
+        case STRZALKI:
+        {
+            rysuj = true;
+            switch (Ekran::klawisz())
+            {
+            case GORA:
+            {
+                if (wybor)
+                {
+                    wybor--;
+                    if (wybor - start < 1)
+                    {
+                        if (start > 0)
+                        {
+                            start--;
+                            stop--;
+                        }
+                    }
+                }
+                break;
+            }
+            case DOL:
+            {
+                if (wybor < pokoje.size() - 1)
+                {
+                    wybor++;
+                    if (stop - wybor < 2)
+                    {
+                        if (stop < pokoje.size())
+                        {
+                            start++;
+                            stop++;
+                        }
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+            }
+            break;
+        }
+        case ESC:
+        {
+            system("cls");
+            return;
+        }
+        case ENTER:
+        {
+            rysuj = true;
+            if (pokoje.size() == 0)
+            {
+                break;
+            }
+            if (pokoje[wybor]->get_status() == "do sprzatania")
+            {
+                pokoje[wybor]->set_status("wolny");
+                Katalog::pobierzInstancje()->zapisz_pokoje();
+            }
+
+
+        }
+        default:
+            break;
+
+        }
+    }
 }
 

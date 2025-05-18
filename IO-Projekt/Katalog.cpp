@@ -62,7 +62,10 @@ std::shared_ptr<Pokoj> parse_csv_pokoj(std::string& linia) {
     std::getline(ss, token, ',');
     std::string standard = token;
 
-    std::shared_ptr<Pokoj> p(new Pokoj(numer, maks_liczba_os, cena_noc, standard));
+    std::getline(ss, token, ',');
+    std::string status = token;
+
+    std::shared_ptr<Pokoj> p(new Pokoj(numer, maks_liczba_os, cena_noc, standard, status));
     return p;
 
 }
@@ -199,6 +202,7 @@ void Katalog::edytuj_pokoj(int indeks, std::shared_ptr<Pokoj> nowy)
 {
     if (indeks >= 0 && indeks < pokoje.size())
     {
+        nowy->set_status(pokoje[indeks]->get_status());
         pokoje[indeks] = nowy;
         zapisz_pokoje();
     }

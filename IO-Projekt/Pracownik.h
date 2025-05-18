@@ -29,6 +29,8 @@ private:
 	void przegladaj_pokoje();
 	void przegladaj_uslugi();
 
+	void wirtualna_recepcja();
+
 	std::shared_ptr<Pokoj> dodaj_pokoj(int n = 101, int lo = 1, int cn = 100, std::string s = "family");
 	std::shared_ptr<Pokoj> edytuj_pokoj(int indeks);
 

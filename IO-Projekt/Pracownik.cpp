@@ -291,13 +291,13 @@ std::shared_ptr<Pokoj> Pracownik::dodaj_pokoj(int n, int lo, int cn, std::string
                 }
                 case 1:
                 {
-                    if (liczba_osob < 10)
+                    if (liczba_osob < 8)
                         liczba_osob++;
                     break;
                 }
                 case 2:
                 {
-                    if (cena_noc < 1500)
+                    if (cena_noc < 1000)
                         cena_noc += 10;
                     break;
                 }
@@ -336,7 +336,6 @@ void Pracownik::przegladaj_uslugi()
     int start = 0;
     int ilosc = 10;
     int stop = min(start + ilosc, katalog->get_ilosc_uslug());
-    std::vector<bool> wybrane(katalog->get_ilosc_uslug(), false);
 
     int najdluzszy = 0;
     for (int i = 0; i < katalog->get_ilosc_uslug(); i++) {
@@ -531,7 +530,7 @@ DodatkowaUsluga Pracownik::dodaj_usluge(std::string n, double c)
                 nazwa += klawisz;
                 rysuj = true;
             }
-            if (wybor == 1 && ((klawisz >= '0' && klawisz <= '9') || (klawisz == '.' && cena_str.length()>0)) && policz_kropki(cena_str)<1)
+            if (wybor == 1 && ((klawisz >= '0' && klawisz <= '9') || (klawisz == '.' && cena_str.length()>0 && policz_kropki(cena_str)<1)))
             {
                 cena_str += klawisz;
                 rysuj = true;
@@ -542,16 +541,48 @@ DodatkowaUsluga Pracownik::dodaj_usluge(std::string n, double c)
     }
 }
 
-
-void Pracownik::gui() {
-	system("cls");
-	//system("clear");
+void Pracownik::wirtualna_recepcja()
+{
+    system("cls");
+    auto wr = WirtualnaRecepcja::pobierzInstancje();
     int a;
     do {
         auto para = Wiadomosc::odczytaj_wiadomosci(this->login);
         this->wyslane_wiadomosci = para.first;
         this->odebrane_wiadomosci = para.second;
-        std::cout << "1. Pokaz katalog.\n2. Wejdz do wirtualnej recepcji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n7. Wyloguj sie.\n";
+        std::cout << "1. Zamelduj\n2. Wymelduj\n3. Zobacz wszystkie rezerwacje\n4. Zobacz status wszystkich pokoi\n5. Wroc do menu\n";
+        std::cin >> a;
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+        }
+        if (a == 1) {
+            wr->zamelduj();
+        }
+        if (a == 2) {
+            wr->wymelduj();
+        }
+        if (a == 3) {
+            wr->przegladaj_rezerwacje();
+        }
+        if (a == 4) {
+            wr->przegladaj_pokoje();
+        }
+        if (a == 5) {
+            return;
+        }
+    } while (true);
+}
+
+
+void Pracownik::gui() {
+	system("cls");
+    int a;
+    do {
+        auto para = Wiadomosc::odczytaj_wiadomosci(this->login);
+        this->wyslane_wiadomosci = para.first;
+        this->odebrane_wiadomosci = para.second;
+        std::cout << "1. Pokaz katalog.\n2. Wejdz do wirtualnej recepcji.\n3. Wyslij wiadomosc.\n4. Zobacz wyslane wiadomosci.\n5. Zobacz odebrane wiadomosci.\n6. Wyloguj sie.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -561,7 +592,7 @@ void Pracownik::gui() {
             przegladaj_katalog();
         }
         if (a == 2) {
-            
+            wirtualna_recepcja();
         }
         if (a == 3) {
             wyslij_wiadomosc();
@@ -572,7 +603,7 @@ void Pracownik::gui() {
         if (a == 5) {
             przegladaj_odebrane_wiadomosci();
         }
-        if (a == 7) {
+        if (a == 6) {
             wyloguj();
             break;
         }
@@ -648,7 +679,7 @@ std::vector<short> Pracownik::filtruj(std::shared_ptr<Data> data_przyjazdu, std:
                 }
                 case 1:
                 {
-                    if (*data_przyjazdu > Data::dzis() + 1)
+                    if (*data_przyjazdu > Data::dzis())
                     {
                         (*data_przyjazdu)--;
                     }
