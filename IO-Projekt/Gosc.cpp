@@ -575,9 +575,35 @@ void Gosc::przegladaj_historie_rezerwacji()
                 break;
             }
             system("cls");
+            std::cout << "ESC - powrot do menu\n";
+            if(historia_rezerwacji[wybor].getStatusRezerwacji() == "do oplacenia")
+                std::cout << "ENTER - oplac\n";
+
             historia_rezerwacji[wybor].pokaz_szczegoly();
             //TODO: daæ mo¿liwoœæ op³acenia
-            system("pause");
+            bool czekaj = true;
+            while (czekaj)
+            {
+                switch (Ekran::klawisz())
+                {
+                case ESC:
+                {
+                    czekaj = false;
+                    break;
+                }
+                case ENTER:
+                {
+                    historia_rezerwacji[wybor].zaplac();
+                    break;
+                }
+                case 'a':
+                case 'A':
+                {
+                    //TODO dodaæ mo¿liwoœæ anulowania
+                }
+                }
+        
+            }
             system("cls");
             rysuj = true;
             break;

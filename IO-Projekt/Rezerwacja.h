@@ -27,6 +27,7 @@ using json = nlohmann::json;
 
 class Rezerwacja {
 private:
+	int id;
 	std::string uzytkownik;
 	Data data_przyjazdu;
 	Data data_wymeldowania;
@@ -35,18 +36,21 @@ private:
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	std::shared_ptr<Pokoj> pokoj;
 	std::shared_ptr<Platnosc> platnosc;
+	double cena;
 	void dopisz_do_pliku();
 public:
-	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, bool nowa = false);
+	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, double cena, bool nowa = false, int id=-1);
 	~Rezerwacja() = default;
 	Platnosc zaplac();
 	void pokaz_szczegoly();
 	void anuluj();
-	void zmien_dane();
 	Data get_data_przyjazdu();
 	Data get_data_wymeldowania();
 	static std::vector<Rezerwacja> odczytaj_rezerwacje(std::string nazwa_uzytkownika);
 	static std::vector<Data> odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju);
+
+	std::string getStatusRezerwacji();
+	void setStatusRezerwacji(std::string status);
 };
 
 #endif  //_REZERWACJA_H

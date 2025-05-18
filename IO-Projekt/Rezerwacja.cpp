@@ -14,7 +14,7 @@
 #include "Platnosc.h"
 #include "Katalog.h"
 
-Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, bool nowa)
+Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, double cena, bool nowa, int id)
 {
 	this->uzytkownik = uzytkownik;
 	this->data_przyjazdu = data_przyjazdu;
@@ -24,6 +24,11 @@ Rezerwacja::Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wy
 	this->status_rezerwacji = status_rezerwacji;
  
 	if (nowa) {
+		//TODO nadaæ nowe id 
+		//odczytaæ z pliku ostatnie id
+		//nadaæ zwiêkoszone o 1,
+		//zapisaæ do pliku ostanie id
+		//this.id = ...
 		dopisz_do_pliku();
 	}
 }
@@ -39,6 +44,7 @@ void Rezerwacja::dopisz_do_pliku() {
 	j["data wymeldowania"] = Data::data_na_string(data_wymeldowania);
 	j["pokoj"] = pokoj->getNumer();
 	j["dodatkowe uslugi"] = dus;
+	//TODO dopisaæ do pliku status i cene i id
 
 	json wszystkie_rezerwacje = json::array();
 	std::ifstream plik_in("dane/rezerwacje.json");
@@ -59,7 +65,6 @@ void Rezerwacja::dopisz_do_pliku() {
 	}
 }
 
-//TODO: dodaæ statyczn¹ metodê do odczytu z pliku po uzytkowniku tak jak przy wiadomoœciach, w konstruktorze goœcia wczytaj wszystkie jego rezerwacje 
 std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytkownika) {
 	json wszystkie_rezerwacje = json::array();
 	std::ifstream plik_in("dane/rezerwacje.json");
@@ -79,14 +84,13 @@ std::vector<Rezerwacja> Rezerwacja::odczytaj_rezerwacje(std::string nazwa_uzytko
 				dus.emplace_back(a, 0);
 			}
 
-			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus, "zamienic to na status rezerwacji");  //TODO
+			Rezerwacja rez(w["nazwa uzytkownika"], Data(w["data przyjazdu"]), Data(w["data wymeldowania"]), Katalog::get_pokoj(w["pokoj"]), dus, "zamienic to na status rezerwacji", 2137, false, 420);  //TODO  2137 zamieniæ na cene, a 420 zamieniæ na id odczytane  zpliku
 			uzytkownik_rez.push_back(rez);
 		}
 	}
 	return uzytkownik_rez;
 }
-//TODO: dodaæ statyczn¹ metodê która przyjmie NUMER pokoju i zwróci vector dat w których dany pokój nie jest dostepny, 
-//TODO: w konstruktorze pokoju wywo³aæ tê metodê i ustawiæ vector pokoju na ten co zwróci metoda
+
 std::vector<Data> Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(int numer_pokoju) {
 	json wszystkie_rezerwacje = json::array();
 	std::ifstream plik_in("dane/rezerwacje.json");
@@ -110,13 +114,14 @@ std::vector<Data> Rezerwacja::odczytaj_niedostepne_daty_dla_pokoju(int numer_pok
 
 Platnosc Rezerwacja::zaplac() 
 {
-	return Platnosc();
+	this->status_rezerwacji = "oplacona";
+	return Platnosc(cena, uzytkownik, Data::dzis_timestamp());
 }
 
 void Rezerwacja::pokaz_szczegoly() 
 {
 	std::cout << "Rezerwacja na termin: " << Data::data_na_string(data_przyjazdu) << " - " << Data::data_na_string(data_wymeldowania) << "\n";
-	std::cout << "Pokoj nr: " << pokoj->getNumer() << "\n"; //TODO: wiecej info o pokoju?
+	std::cout << "Pokoj nr: " << pokoj->getNumer() << "\n"; 
 	std::cout << "Dodatkowe uslugi:" << "\n";
 	std::cout << "Ilosc: " << dodatkowe_uslugi.size() << "\n";
 	for (int i = 0; i < dodatkowe_uslugi.size(); i++) {
@@ -127,12 +132,7 @@ void Rezerwacja::pokaz_szczegoly()
 
 void Rezerwacja::anuluj() 
 {
-
-}
-
-void Rezerwacja::zmien_dane() 
-{
-
+	//TODO, metoda ma przyjmowaæ id rezerwacji i ma usun¹æ j¹ z pliku
 }
 
 Data Rezerwacja::get_data_przyjazdu() {
@@ -143,4 +143,12 @@ Data Rezerwacja::get_data_wymeldowania() {
 	return data_wymeldowania;
 }
 
-//TODO: dodaæ getter i setter do statusu
+std::string Rezerwacja::getStatusRezerwacji() {
+	return status_rezerwacji;
+}
+
+void Rezerwacja::setStatusRezerwacji(std::string status) {
+	status_rezerwacji = status;
+}
+
+//TODO: dodaæ getter do id

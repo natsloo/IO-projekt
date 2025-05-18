@@ -17,13 +17,13 @@
 
 class Platnosc {
 private:
-	int kwota;
-	int status_platnosci;
+	double kwota;
+	std::string platnik;
 	Data data;
-public:
-	Platnosc();
-	~Platnosc() = default;
 	void wygeneruj_fakture();
+public:
+	Platnosc(double kwota, std::string platnik, Data data);
+	~Platnosc() = default;
 };
 
 #endif  //_PLATNOSC_H

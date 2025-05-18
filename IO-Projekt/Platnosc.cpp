@@ -11,14 +11,21 @@
 
 
 #include "Platnosc.h"
+#include "Wiadomosc.h"
 
-Platnosc::Platnosc()
+Platnosc::Platnosc(double kwota, std::string platnik, Data data)
 {
-
+	this->kwota = kwota;
+	this->platnik = platnik;
+	this->data = data;
+	this->wygeneruj_fakture();
 }
 
 void Platnosc::wygeneruj_fakture() 
 {
-
+	std::vector<std::string> tresc;
+	tresc.push_back("TODO: dodaæ tresc");
+	tresc.push_back("kiedys sie to zrobi");
+	Wiadomosc("System", platnik, "Potwierdzenie platnosci", tresc, data, true);
 }
 
