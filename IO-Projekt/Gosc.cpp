@@ -118,6 +118,18 @@ void Gosc::przegladaj_katalog()
             rysuj = true;
             system("cls");
             indeksy = zastosuj_filtry(*data_przyjazdu, *data_wymeldowania, 0, 1000, 1, "all");
+            if (start)
+            {
+                start--;
+            }
+            if (stop)
+            {
+                stop--;
+            }
+            if (wybor)
+            {
+                wybor--;
+            }
             break;
         }
         case 'f':
