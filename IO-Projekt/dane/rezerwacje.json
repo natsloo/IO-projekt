@@ -1,73 +1,68 @@
 [
     {
-        "data przyjazdu": "18.05.2025",
-        "data wymeldowania": "19.05.2025",
-        "dodatkowe uslugi": [],
-        "nazwa uzytkownika": "natalia",
-        "pokoj": 101
-    },
-    {
-        "data przyjazdu": "18.05.2025",
-        "data wymeldowania": "19.05.2025",
-        "dodatkowe uslugi": [
-            "silownia hotelowa za jedna dobe",
-            "wejscia przez caly pobyt na basen i plaze hotelowa",
-            "strzezony parking hotelowy przez caly pobyt",
-            "dostep do pralni",
-            "wypozyczenie roweru na dzien",
-            "wypozyczenie kajaka na dzien",
-            "telewizja za jedna dobe",
-            "minibar za caly pobyt",
-            "butelka szampana",
-            "butelka wina"
-        ],
-        "nazwa uzytkownika": "natalia",
-        "pokoj": 105
-    },
-    {
+        "cena": 550.0,
         "data przyjazdu": "19.05.2025",
         "data wymeldowania": "20.05.2025",
         "dodatkowe uslugi": [
-            "silownia hotelowa za jedna dobe",
-            "wejscia przez caly pobyt na basen i plaze hotelowa",
-            "wizyta w hotelowym spa",
-            "sniadanie",
-            "obiad",
-            "kolacja",
-            "strzezony parking hotelowy przez caly pobyt",
-            "transfer z/na lotnisko",
-            "wypozyczenie roweru na dzien",
-            "minibar za caly pobyt"
+            [
+                "silownia hotelowa",
+                55.0
+            ],
+            [
+                "wejscia na basen i plaze hotelowa",
+                55.0
+            ],
+            [
+                "wizyta w hotelowym spa",
+                50.0
+            ],
+            [
+                "sniadania",
+                50.0
+            ],
+            [
+                "obiady",
+                90.0
+            ]
         ],
+        "id": 1,
         "nazwa uzytkownika": "natalia",
-        "pokoj": 109
+        "pokoj": 101,
+        "status": "oplacona"
     },
     {
+        "cena": 675.0,
         "data przyjazdu": "19.05.2025",
         "data wymeldowania": "20.05.2025",
-        "dodatkowe uslugi": [],
-        "nazwa uzytkownika": "natalia",
-        "pokoj": 110
-    },
-    {
-        "data przyjazdu": "19.05.2025",
-        "data wymeldowania": "20.05.2025",
-        "dodatkowe uslugi": [],
-        "nazwa uzytkownika": "natalia",
-        "pokoj": 107
-    },
-    {
-        "data przyjazdu": "21.05.2025",
-        "data wymeldowania": "23.05.2025",
         "dodatkowe uslugi": [
-            "silownia hotelowa",
-            "wejscia na basen i plaze hotelowa",
-            "wizyta w hotelowym spa",
-            "sniadania",
-            "obiady",
-            "kolacje"
+            [
+                "silownia hotelowa",
+                55.0
+            ],
+            [
+                "wejscia na basen i plaze hotelowa",
+                55.0
+            ],
+            [
+                "wizyta w hotelowym spa",
+                50.0
+            ],
+            [
+                "sniadania",
+                50.0
+            ],
+            [
+                "obiady",
+                90.0
+            ],
+            [
+                "kolacje",
+                50.0
+            ]
         ],
+        "id": 2,
         "nazwa uzytkownika": "natalia",
-        "pokoj": 129
+        "pokoj": 102,
+        "status": "oplacona"
     }
 ]

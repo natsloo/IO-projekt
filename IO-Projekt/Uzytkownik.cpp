@@ -83,7 +83,7 @@ void Uzytkownik::wyslij_wiadomosc()
 		}
 		tresc.push_back(linia);
 	}
-	Wiadomosc w(login, adresat, temat, tresc, Data::dzis(), true);
+	Wiadomosc w(login, adresat, temat, tresc, Data::dzis_timestamp(), true);
 }
 
 std::string spacja(int naj) {
@@ -121,6 +121,7 @@ void Uzytkownik::przegladaj_wyslane_wiadomosci()
 		{
 			std::cout << "\033[" << 0 << ";" << 0 << "H";
 			std::cout << "ESC - powrot do menu\n";
+			std::cout << "STRZALKI - przechodzenie po wiadomosciach\n";
 			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
 			if (wyslane_wiadomosci.size() == 0) 
 			{
@@ -131,7 +132,7 @@ void Uzytkownik::przegladaj_wyslane_wiadomosci()
 				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") 
 					<< wyslane_wiadomosci[i].getAdresat() << spacja(najad - wyslane_wiadomosci[i].getAdresat().length() + 4) << wyslane_wiadomosci[i].getTemat()
 					<< spacja(najdluzszy - wyslane_wiadomosci[i].getTemat().length() + 4)
-					<< Data::data_na_string(wyslane_wiadomosci[i].getDataWyslania()) 
+					<< Data::data_na_string_timestamp(wyslane_wiadomosci[i].getDataWyslania()) 
 					<< "\t" << "\x1b[0m          \n";
 			}
 			rysuj = false;
@@ -192,7 +193,7 @@ void Uzytkownik::przegladaj_wyslane_wiadomosci()
 				break;
 			}
 			system("cls");
-			std::cout << "Data wyslania : " << Data::data_na_string(wyslane_wiadomosci[wybor].getDataWyslania()) << "\n";
+			std::cout << "Data wyslania : " << Data::data_na_string_timestamp(wyslane_wiadomosci[wybor].getDataWyslania()) << "\n";
 			std::cout << "Nadwaca: " << wyslane_wiadomosci[wybor].getNadawca() << "\t" << "Adresat: " << wyslane_wiadomosci[wybor].getAdresat() << "\n";
 			std::cout << "Temat: " << wyslane_wiadomosci[wybor].getTemat() << "\n-----------------------------------------------------\nTresc:\n\n";
 			for (auto& l : wyslane_wiadomosci[wybor].getTresc()) {
@@ -237,6 +238,7 @@ void Uzytkownik::przegladaj_odebrane_wiadomosci() {
 		{
 			std::cout << "\033[" << 0 << ";" << 0 << "H";
 			std::cout << "ESC - powrot do menu\n";
+			std::cout << "STRZALKI - przechodzenie po wiadomosciach\n";
 			std::cout << "ENTER - wybierz wiadomosc do przeczytania\n\n";
 			if (odebrane_wiadomosci.size() == 0) 
 			{
@@ -244,9 +246,9 @@ void Uzytkownik::przegladaj_odebrane_wiadomosci() {
 			}
 			for (int i = start; i < stop; i++)
 			{
-				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << odebrane_wiadomosci[i].getAdresat() << spacja(najad - odebrane_wiadomosci[i].getAdresat().length() + 4) << odebrane_wiadomosci[i].getTemat()
+				std::cout << i << ". " << (wybor == i ? "\033[38;5;0;48;5;15m" : "") << odebrane_wiadomosci[i].getNadawca() << spacja(najad - odebrane_wiadomosci[i].getAdresat().length() + 4) << odebrane_wiadomosci[i].getTemat()
 					<< spacja(najdluzszy - odebrane_wiadomosci[i].getTemat().length() + 4)
-					<< Data::data_na_string(odebrane_wiadomosci[i].getDataWyslania())
+					<< Data::data_na_string_timestamp(odebrane_wiadomosci[i].getDataWyslania())
 					<< "\t" << "\x1b[0m          \n";
 			}
 			rysuj = false;
@@ -307,7 +309,7 @@ void Uzytkownik::przegladaj_odebrane_wiadomosci() {
 				break;
 			}
 			system("cls");
-			std::cout << "Data wyslania : " << Data::data_na_string(odebrane_wiadomosci[wybor].getDataWyslania()) << "\n";
+			std::cout << "Data wyslania : " << Data::data_na_string_timestamp(odebrane_wiadomosci[wybor].getDataWyslania()) << "\n";
 			std::cout << "Nadwaca: " << odebrane_wiadomosci[wybor].getNadawca() << "\t" << "Adresat: " << odebrane_wiadomosci[wybor].getAdresat() << "\n";
 			std::cout << "Temat: " << odebrane_wiadomosci[wybor].getTemat() << "\n-----------------------------------------------------\nTresc:\n\n";
 			for (auto& l : odebrane_wiadomosci[wybor].getTresc()) {

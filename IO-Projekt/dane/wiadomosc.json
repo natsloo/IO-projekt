@@ -1,337 +1,46 @@
 [
     {
         "adresat": "lukas",
-        "data": "15.05.2025 19:06:05",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:11:43",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:12:10",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:13:23",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 19:48:51",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:48:51",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:48:51",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 19:48:51",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:00:27",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "lukas",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia",
-        "tresc": [
-            "czesc, pozdrawiam ze slonecznego Lublina",
-            "kochane pieniazki przyslijcie rodzice",
-            "co slychac, jaka pogoda?"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": []
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "asdfghj",
-        "tresc": [
-            "asdfghj",
-            "asdfghj"
-        ]
-    },
-    {
-        "adresat": "lukasz",
-        "data": "15.05.2025 20:02:09",
-        "nadawca": "natalia",
-        "temat": "pozdrowienia z wakacji",
-        "tresc": [
-            "czesc pozdrawiam ",
-            "do zobaczenia",
-            "jaka pogoda u was?"
-        ]
-    },
-    {
-        "adresat": "natalia",
-        "data": "16.05.2025 14:20:02",
+        "data": "18.05.2025 18:11:37",
         "nadawca": "natalia",
         "temat": "to jest test",
         "tresc": [
-            "hej ja tstuje tylko cos tutaj ",
-            "nie wiem czy dziala, moze tak, moze nie",
-            "zobacztmy",
-            "nara"
+            "to jest test",
+            "test czy data timestamp dziala",
+            "mam nadzieje, ze tak"
+        ]
+    },
+    {
+        "adresat": "lukas",
+        "data": "18.05.2025 18:21:04",
+        "nadawca": "natalia",
+        "temat": "asdfghjkl",
+        "tresc": [
+            "asdfghjkl",
+            "asdfghjkl",
+            "sdfghjk"
         ]
     },
     {
         "adresat": "natalia",
-        "data": "16.05.2025 15:08:15",
-        "nadawca": "lukas",
-        "temat": "powitanie",
+        "data": "18.05.2025 18:21:38",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
         "tresc": [
-            "witamy w hotelu!",
-            "mamy nadzieje, ze wszystko dziala odpowiednio!",
-            "do zobaczenia!"
+            "FAKTURA\nza rezerwacje 1",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 550.000000"
+        ]
+    },
+    {
+        "adresat": "natalia",
+        "data": "18.05.2025 18:53:08",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 2",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 675.000000"
         ]
     }
 ]

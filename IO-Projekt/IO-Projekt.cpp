@@ -22,7 +22,7 @@ int main()
     std::cout << "\n\n\n";
     int a;
     do {
-        std::cout << "Kim jestes?\n1. Gosc.\n2. Pracownik.\n";
+        std::cout << "Co chcesz zrobic?\n1. Przejsc do czesci dla gosci.\n2. Przejsc do czesci dla pracownikow.\n3. Wyjsc z programu.\n";
         std::cin >> a;
         if (std::cin.fail()) {
             std::cin.clear();
@@ -83,6 +83,9 @@ int main()
                     break;
                 }
             } while (true);
+        }
+        if (a == 3) {
+            return 0;
         }
     } while (true);
 }

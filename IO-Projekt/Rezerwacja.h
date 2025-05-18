@@ -35,9 +35,11 @@ private:
 	int liczba_osob;
 	std::vector<DodatkowaUsluga> dodatkowe_uslugi;
 	std::shared_ptr<Pokoj> pokoj;
-	std::shared_ptr<Platnosc> platnosc;
 	double cena;
 	void dopisz_do_pliku();
+	int odczytaj_id_z_pliku();
+	void zapisz_id_do_pliku(int id);
+	void zmien_status_rezerwacji(std::string status);
 public:
 	Rezerwacja(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, std::shared_ptr<Pokoj> pokoj, std::vector<DodatkowaUsluga> dodatkowe_uslugi, std::string status_rezerwacji, double cena, bool nowa = false, int id=-1);
 	~Rezerwacja() = default;
@@ -51,6 +53,7 @@ public:
 
 	std::string getStatusRezerwacji();
 	void setStatusRezerwacji(std::string status);
+	int get_id();
 };
 
 #endif  //_REZERWACJA_H

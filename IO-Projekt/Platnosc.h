@@ -20,9 +20,10 @@ private:
 	double kwota;
 	std::string platnik;
 	Data data;
+	int id_rezerwacji;
 	void wygeneruj_fakture();
 public:
-	Platnosc(double kwota, std::string platnik, Data data);
+	Platnosc(double kwota, std::string platnik, Data data, int id_rezerwacji);
 	~Platnosc() = default;
 };
 

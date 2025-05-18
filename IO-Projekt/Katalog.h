@@ -49,7 +49,7 @@ public:
 	std::vector<short> filtruj_wg_ceny(double min, double max) override;
 	std::vector<short> filtruj_wg_ilosci_osob(int ilosc) override;
 	std::vector<short> filtruj_wg_standardu(std::string standard) override;
-	Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi) override;
+	Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi, double cena) override;
 	void dodaj_pokoj(std::shared_ptr<Pokoj> p) override;
 	std::shared_ptr<Pokoj> get_pokoj(int indeks) override;
 	void edytuj_pokoj(int indeks, std::shared_ptr<Pokoj> nowy) override;
@@ -70,6 +70,7 @@ public:
 
 	std::vector<std::shared_ptr<Pokoj>> get_vector_pokoi();
 	static std::shared_ptr<Pokoj> get_pokoj_(int numer);
+	static void przeladuj_pokoje();
 };
 
 #endif  //_KATALOG_H

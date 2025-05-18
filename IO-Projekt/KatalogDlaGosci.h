@@ -24,7 +24,7 @@ public:
 	virtual std::vector<short> filtruj_wg_ceny(double min, double max) = 0;
 	virtual std::vector<short> filtruj_wg_ilosci_osob(int ilosc) = 0;
 	virtual std::vector<short> filtruj_wg_standardu(std::string standard) = 0;
-	virtual Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi) = 0;
+	virtual Rezerwacja zarezerwuj(std::string uzytkownik, Data data_przyjazdu, Data data_wymeldowania, int pokoj, std::vector<short> uslugi, double cena) = 0;
 	virtual ~KatalogDlaGosci() = default;
 
 	virtual int get_ilosc_pokoi() = 0;
