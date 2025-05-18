@@ -29,5 +29,40 @@
         "nazwa uzytkownika": "natalia",
         "pokoj": 101,
         "status": "oplacona"
+    },
+    {
+        "cena": 675.0,
+        "data przyjazdu": "19.05.2025",
+        "data wymeldowania": "20.05.2025",
+        "dodatkowe uslugi": [
+            [
+                "silownia hotelowa",
+                55.0
+            ],
+            [
+                "wejscia na basen i plaze hotelowa",
+                55.0
+            ],
+            [
+                "wizyta w hotelowym spa",
+                50.0
+            ],
+            [
+                "sniadania",
+                50.0
+            ],
+            [
+                "obiady",
+                90.0
+            ],
+            [
+                "kolacje",
+                50.0
+            ]
+        ],
+        "id": 2,
+        "nazwa uzytkownika": "natalia",
+        "pokoj": 102,
+        "status": "oplacona"
     }
 ]

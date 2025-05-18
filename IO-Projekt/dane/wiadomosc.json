@@ -31,5 +31,16 @@
             "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
             "Na kwote: 550.000000"
         ]
+    },
+    {
+        "adresat": "natalia",
+        "data": "18.05.2025 18:53:08",
+        "nadawca": "System",
+        "temat": "Potwierdzenie platnosci",
+        "tresc": [
+            "FAKTURA\nza rezerwacje 2",
+            "\nWystawiona dnia: 18.05.2025.\nPlatnik: natalia\t\t\tSprzedawca: Hotel\n",
+            "Na kwote: 675.000000"
+        ]
     }
 ]
